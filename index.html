@@ -225,6 +225,13 @@
                 align-items: center;
             }
         }
+        
+        @media (max-width: 400px) {
+            .cover-images > img{
+                height: 300px;
+                margin-bottom: 20px;
+            }
+        }
 
         .spacer-section{
             display: flex;
@@ -437,6 +444,7 @@
             .body-info-images > img{
                 width: calc(75% - 10px);
                 aspect-ratio: 4 / 3;
+                margin: 5px;
             }
 
             .body-info-images > img:nth-of-type(2){
