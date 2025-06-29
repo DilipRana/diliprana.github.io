@@ -4,636 +4,394 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="Images/shortcut.png" type="image/x-icon">
-    <link rel="shortcut icon" href="Images/shortcut.png" type="image/x-icon">
-    <title>Dilip Rana - Welcome</title>
-    <style>
-        *{
-            box-sizing: border-box;
-            scroll-margin-top: 80px;
-            scroll-behavior: smooth !important;
-        }
-
-        body{
-            background-color: rgb(25, 26, 29);
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            padding-top: 60px;
-        }
-
-        a{
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        img{
-            object-fit: cover;
-        }
-
-
-        /*
-            Header styling starts here
-        */
-        header{
-            position:fixed;
-            top: 0;
-            left: 0;
-            z-index: 10;
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            background-color: rgba(25, 26, 29, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 0px 20px;
-            padding-bottom: 5px;
-        }
-
-        .main-title{
-            color: white;
-            font-size: 40px;
-            font-weight: bold;
-            position: relative;
-        }
-
-        .main-title > div{
-            position: absolute;
-            top: 0px;
-        }
-
-        #shadow-text{
-            top: 0px;
-            left: -1px;
-            color: rgb(101, 40, 56);
-            z-index: -1;
-        }
-
-        .main-title::after{
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 25%;
-            height: 5px;
-            border-radius: 5px;
-            background-color: rgb(209, 136, 0);
-            transition: 0.2s;
-        }
-
-        .main-title:hover::after{
-            left: 75%;
-        }
-
-        .header-nav{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-evenly;
-            list-style: none;
-            padding: 10px;
-            margin: 5px;
-        }
-
-        .header-nav > li{
-            margin: 0px 10px;
-            position: relative;
-        }
-
-        .header-nav > li > a{
-            color: #EEE;
-        }
-        
-        .header-nav > li::after{
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            width: 0;
-            height: 1px;
-            background-color: #EEE;
-            transition: 0.2s;
-        }
-        
-        /* Hover effect not removed after click in phones */
-        /* .header-nav > li:hover::after {
-            width: 40%;
-            left: 30%;
-        } */
-
-        .header-nav > .active::after{
-            width: 100%;
-            left: 0;
-        }
-        
-        @media (max-width: 500px) {
-            .main-title{
-                display: none;
-            }
-
-            header > nav {
-                width: 100%;
-            }
-
-            .header-nav{
-                justify-content: space-around;
-            }
-        }
-
-        /*
-            Main items styles
-        */
-        
-        .cover{
-            min-height: calc(100vh - 60px);
-            width: 100%;
-            display: flex;
-            margin-top: 5px;
-            padding: 20px;
-        }
-
-        .cover-container{
-            margin: auto;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            width: 100%;
-            max-width: 1000px;
-            grid-gap: 50px;
-        }
-
-        .cover-texts{
-            display: flex;
-            flex-direction: column;
-            padding: 5px 20px;
-            width: 60%;
-        }
-        
-        .cover-title-text{
-            color: white;
-            font-size: 42px;
-            margin-bottom: 10px;
-            z-index: 2;
-        }
-
-        .cover-info-text{
-            color: #EEE;
-            font-size: 22px;
-            font-weight: 100;
-        }
-
-        .action-btn{
-            background-color: rgb(101, 40, 56);
-            width: fit-content;
-            border-radius: 20px;
-            color: white;
-            font-size: 22px;
-            padding: 8px 20px;
-            margin: 15px 0px;
-            transition: 0.5s;
-            text-align: center;
-        }
-
-        .action-btn:hover{
-            box-shadow: 0px 0px 0px 1px white;
-        }
-
-        .cover-images{
-            background-color: rgb(18, 19, 22);
-            margin-top: -10px;
-            padding: 30px;
-        }
-
-        .cover-images > img{
-            height: 400px;
-            aspect-ratio: 2 / 3;
-            margin-bottom: -60px;
-        }
-
-
-        @media (max-width: 750px) {
-            .cover-info-text{
-                font-size: 18px;
-            }
-        }
-        
-        @media (max-width: 600px) {
-            .cover-container{
-                flex-direction: column-reverse;
-            }
-
-            .cover-texts{
-                width: 95%;
-                align-items: center;
-            }
-        }
-        
-        @media (max-width: 400px) {
-            .cover-images > img{
-                height: 300px;
-            }
-        }
-
-        .spacer-section{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            grid-gap: 9px;
-        }
-
-        .spacer-item{
-            width: 1px;
-            height: 100px;
-            background-color: white;
-        }
-
-        .body-info-header-text{
-            color: white;
-            text-align: center;
-            font-size: 48px;
-            font-weight: bold;
-            background-color: rgba(25, 26, 29, 0.8);
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-
-        .body-infos-contents{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .body-info-item{
-            margin: 10px;
-            margin-top: 40px;
-            width: 100%;
-            max-width: 1000px;
-            padding: 5px 40px;
-            position: relative;
-        }
-
-        .body-info-item::before{
-            position: absolute;
-            top: -60px;
-            left: 50%;
-            content: '';
-            width: 1px;
-            height: 50px;
-            background-color: white;
-        }
-        
-        .body-info-date{
-            color: #EEE;
-            font-size: 16px;
-            font-style: italic;
-            text-align: center;
-        }
-
-        .body-info-title{
-            color: white;
-            font-size: 30px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .body-info-details{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .body-info-images{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            grid-gap: 20px;
-            position: relative;
-            padding: 0px 10px;
-        }
-
-        .body-info-images > img{
-            width: calc(30% - 10px);
-            aspect-ratio: 3 / 4;
-        }
-
-        .body-info-images > img:nth-of-type(2){
-            width: calc(40% - 10px);
-        }
-
-        .single-image > img{
-            width: calc(100% - 50px);
-            margin: auto;
-            aspect-ratio: 2 / 1;
-        }
-
-        .body-info-texts{
-            color: #EEE;
-            font-style: italic;
-            font-size: 18px;
-            font-weight: 100;
-            margin: 30px 40px;
-            border-radius: 10px;
-            transition: 1s;
-            overflow: hidden;
-		    /* max-height: 8rem; */
-        }
-
-        /* Animating the details sets limit to max height*/
-        /* .body-info-texts[open]{
-            max-height: 1000px;
-        } */
-
-        .body-info-texts summary{
-            cursor: pointer;
-            user-select: none;
-            display: inline;
-            padding: 20px;
-        }
-
-        .bold-text{
-            font-weight: bold;
-        }
-
-        .italic-text{
-            font-style: underline;
-        }
-
-        .expand-detail-text{
-            font-size: 14px;
-            color: orange;
-            cursor: pointer;
-            transition: 1s;
-        }
-
-        .collapsed-texts{
-            background-color: #EEE;
-            color: black;
-            padding: 20px;
-            font-size: 18px;
-        }
-        
-        .body-info-texts[open], 
-        .body-info-texts:hover{
-            box-shadow: 0px 0px 0px 1px rgb(101, 40, 56);
-        }
-
-        .items-spacer{
-            width: 1px;
-            height: 20px;
-            background-color: white;
-        }
-
-        .quote-text{
-            margin-bottom: 0px;
-        }
-
-        .quote-date{
-            margin-bottom: 10px;
-        }
-        
-        .normal-text-paragraph{
-            background-color: #EEE;
-            color: black;
-            padding: 20px;
-            font-size: 18px;
-            border-radius: 10px;
-            margin: 0px 10px;
-            margin-top: 20px;
-            margin-bottom: 30px
-        }
-        
-        .collapsed-texts a,
-        .normal-text-paragraph a{
-            font-weight: bold;
-            color: rgb(101, 40, 56);
-            text-decoration: underline;
-        }
-
-        .contact-links{
-            display: flex;
-            flex-direction: row;
-            margin: auto;
-            max-width: 400px;
-            justify-content: space-between;
-            padding: 20px;
-        }
-
-        .contact-links a img{
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            transition: 0.2s;
-        }
-        
-        .contact-links a img:hover{
-            transform: scale(1.1);
-        }
-
-        @media (max-width: 750px) {
-            .body-info-item{
-                padding: 5px 20px;
-            }
-            .body-info-texts{
-                margin: 15px 10px;
-            }
-        }
-        
-        @media (max-width: 600px) {
-            .body-info-images{
-                flex-direction: column;
-            }
-
-            .body-info-images > img{
-                width: calc(75% - 10px);
-                aspect-ratio: 4 / 3;
-                margin: 5px;
-            }
-
-            .body-info-images > img:nth-of-type(2){
-                width: calc(100% - 10px);
-                aspect-ratio: 3 / 4;
-            }
-        }
-        
-        @media (max-width: 400px) {
-            .body-info-texts{
-		font-size: 16px;
-            }
-		
-	    .collapsed-texts{
-	        font-size: 14px;
-	    }
-		
-            .normal-text-paragraph{
-		font-size: 16px;
-                margin-left: 0;
-                margin-right: 0;
-            }
-        }
-    </style>
+    <link rel="icon" href="Images/Icons/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="Images/Icons/favicon.png" type="image/x-icon">
+    <title>Dilip Rana - Personal Website</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <a class="main-title" href="#home">
-            Dilip Rana
-            <div id="shadow-text">Dilip Rana</div>
-        </a>
-        <nav>
-            <ul class="header-nav">
+        <nav class="header-nav">
+            <ul class="header-ul underlines">
                 <li class="active" id="home-nav">
                     <a href="#home">Home</a>
+                </li>
+                <li id="experience-nav">
+                    <a href="#experience">Experience</a>
                 </li>
                 <li id="projects-nav">
                     <a href="#projects">Projects</a>
                 </li>
-                <li id="about-nav">
-                    <a href="#about">About</a>
+                <li id="publications-nav">
+                    <a href="#publications">Publications</a>
                 </li>
                 <li id="contact-nav">
-                    <a href="#contact">Contact</a>
+                    <a href="#contact">Contact info</a>
+                </li>
+            </ul>
+            <ul class="header-ul collapse">
+                <li class="header-button unfilled"  id="home-nav"  title="Click to view CV">
+                    <a href="files/Dilip Rana - CV.pdf"  target="_blank" onclick="openToast('Opening CV in new tab...')">View CV</a>
+                </li>
+                <li class="header-button filled" id="projects-nav"  title="Click to open email app">
+                    <a href="mailto:ranad@rpi.edu" onclick="openToast('Opening email app...')">Send email</a>
                 </li>
             </ul>
         </nav>
     </header>
-
     <main>
         <section class="cover" id="home">
             <div class="cover-container">
-                <div class="cover-texts">
-                    <div class="cover-title-text">Greetings, I am Dilip.</div>
-                    <div class="cover-info-text">
-			I am an Electrical Engineer from Tribhuvan University Institute of Engineering, Pulchowk Campus. I am currently working at Yatri Motorcycles as an Embedded Hardware Engineer.
+                <div class="cover-left">
+                    <div class="cover-texts">
+                        <div class="small-text">Hello, I am</div>
+                        <div class="name-text bold">Dilip Rana</div>
+                        <div class="small-text">I am currently a</div>
+                        <div class="post-text bold">PhD Candidate & Researcher</div>
+                        <div class="small-text">focusing on</div>
+                        <div class="post-text bold">Power Electronics</div>
+                        <div class="small-text">specificically working on the</div>
+                        <div class="small-text"><span class="bold">Reliability Characterization</span> of</div>
+                        <div class="small-text"><span class="bold">GaN Power Devices</span> at</div>
+                        <div class="small-text"><span class="bold">Cryogenic Temperatures</span></div>
                     </div>
-                    <a class="action-btn" href="#projects">
-                        Recent Projects
-                    </a>
+                    
+                    <div class="cover-texts action-bottom">
+                        <div class="small-text">Quick Links:</div>
+                        <div class="action-container">
+                            <div class="action-button" title="Click to view CV">
+                                <a href="files/Dilip Rana - CV.pdf"  target="_blank" onclick="openToast('Opening CV in new tab...')">View CV</a>
+                            </div>
+                            <div class="action-button" title="Click to open email app">
+                                <a href="mailto:ranad@rpi.edu" onclick="openToast('Opening email app...')">Send email</a>
+                            </div>
+                        </div>
+                        
+                        <div class="small-text">or email me directly to</div>
+                        <div class="email-text bold">
+                            ranad@rpi.edu
+                            <button class="copy-button" onclick="copyToClipboard('ranad@rpi.edu')" title="Click to copy email address">
+                                Copy
+                                <div class="copy-icon">&nbsp</div>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="cover-images">
-                    <img src="Images/Convocation.jpg" alt="Dilip Rana Cover Image">
+                    <img src="Images/cover.jpg" alt="Cover photo of Dilip Rana">
                 </div>
             </div>
         </section>
 
-        <section class="spacer-section">
-            <div class="spacer-item"></div>
-        </section>
+        <div class="scroll-icon" title="Scroll down for more info">
+            <a href="#experience">
+                <img src="./Images/Icons/scroll.png" alt="Scroll icon">
+            </a>
+        </div>
 
-        <section class="body-infos-section" id="projects">
+        <section class="body-info-section" id="experience">
             <div class="body-info-header-text">
-                Recent Projects
+                Experience
             </div>
             <div class="body-infos-contents">
-                <div class="body-info-item">
+                <div class="body-info-item top-border">
+                    <div class="body-info-title">
+                        <img src="Images/Icons/research.png" alt="Research icon">
+                        Graduate Research Assistant
+                    </div>
+                    <div class="experience-details">
+                        <div class="experience-location-split">
+                            <img src="Images/Experience/RPI/logo.png" alt="RPI Logo" class="experience-location-logo">
+                            <div class="experience-location-details">
+                                <div class="body-info-date">Jan 2024 - Present (Expected Graduation: 2028)</div>
+                                <div class="experience-company-name">
+                                    Rensselaer Polytechnic Institute
+                                    <a class="openlink-button" title="Click to open RPI website" href="https://rpi.edu" target="_blank" >
+                                        <img src="Images/Icons/openLink.svg" alt="Open link icon">
+                                    </a>
+                                </div>
+                                <div class="experience-company-name">
+                                    E<sup>x</sup>PERT Team
+                                    <a class="openlink-button" title="Click to open ExPERT website" href="https://expertlab.pythonanywhere.com" target="_blank" >
+                                        <img src="Images/Icons/openLink.svg" alt="Open link icon">
+                                    </a>
+                                </div>
+                                <div class="experience-company-location">Troy, New York, Unites States</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <details class="body-info-texts">
+                        <summary>
+                            I am currently a graduate research assistant working with Prof. Zheyu Zhang. Currently, I am honored to be involved in a <b>NASA-funded project</b> focused on evaluating the suitability of GaN HEMTs for future lunar missions. My work involves conducting stress tests that replicate lunar environmental conditions and assessing device performance to support the design of next-generation power converters. My research centers on the reliability assessment of GaN HEMTs, with a strong focus on understanding their behavior under extreme operating conditions.
+                        </summary>
+                        <div class="body-info-images">
+                            <div class="autofit-img">
+                                <img src="Images/Experience/RPI/pcb.png" alt="PCB Soldering at RPI">
+                            </div>
+                            <div class="autofit-img">
+                                <img src="Images/Experience/RPI/coldhead.png" alt="Cyocooler cold head at RPI">
+                            </div>
+                            <div class="autofit-img">
+                                <img src="Images/Experience/RPI/lab.png" alt="RPI ExPERT lab">
+                            </div>
+                            <div class="autofit-img">
+                                <img src="Images/Experience/RPI/teamPhoto.jpg" alt="RPI ExPERT with visitors from GE">
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                <div class="body-info-item top-border bottom-border">
+                    <div class="body-info-title">
+                        <img src="Images/Icons/chip.jpg" alt="Chip icon">
+                        Embedded Hardware Engineer
+                    </div>
+                    <div class="experience-details">
+                        <div class="experience-location-split">
+                            <img src="Images/Experience/Yatri/logo.jpg" alt="Yatri Logo" class="experience-location-logo">
+                            <div class="experience-location-details">
+                                <div class="body-info-date">Jan 2022 - Dec 2023</div>
+                                <div class="experience-company-name">
+                                    Yatri Motorcycles
+                                    <a class="openlink-button" title="Click to open Yatri website" href="https://yatrimotorcycles.com" target="_blank">
+                                        <img src="Images/Icons/openLink.svg" alt="Open link icon">
+                                    </a>
+                                </div>
+                                <div class="experience-company-location">Budhanilkantha, Kathmandu, Nepal</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <details class="body-info-texts">
+                        <summary>
+                            Following a three-month internship, I joined Yatri Motorcycles—Nepal’s first and only electric two-wheeler startup—as a full-time Embedded Hardware Engineer. I was involved in the design, testing, and implementation of critical hardware components for vehicle embedded systems, including the Vehicle Control Unit (VCU), power relay boards, and more. This role required close collaboration with multidisciplinary teams for system-level testing and design validation. Seeing these developments successfully integrated into the final product was a highly rewarding experience.
+                        </summary>
+                        <div class="body-info-images">  
+                            <div class="autofit-img">
+                                <img src="Images/Experience/Yatri/yatriBike.png" alt="Yatri motorcycle in assemply">
+                            </div>
+                            <div class="autofit-img">
+                                <img src="Images/Experience/Yatri/pcbTest.png" alt="PCB tests at Yatri">
+                            </div>
+                            <div class="autofit-img">
+                                <img src="Images/Experience/Yatri/pcbDesign.png" alt="PCB design at Yatri">
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="body-info-section" id="projects">
+            <div class="body-info-header-text">
+                Projects
+            </div>
+            <div class="body-infos-contents">
+                <div class="body-info-item timeline-item solid-timeline">
                     <div class="body-info-date">
-                        June 2023 - Present
+                        Jan 2025 - Present
                     </div>
                     <div class="body-info-title">
-                        "1kW Isolated LLC Resonant Converter"
+                        Reliability Characterization of Commercial GaN Power Semiconductors
                     </div>
                     <div class="body-info-details">
                         <div class="body-info-images">
-                            <img src="Images/LLC-1.png" alt="LLC Image 1">
-                            <img src="Images/LLC-2.png" alt="LLC Image 2">
-                            <img src="Images/LLC-3.png" alt="LLC Image 3">
+                            <div class="autofit-img">
+                                <img src="Images/Projects/ReliabilityGaN/circuit.png" alt="Reliability Characterization Circuit Diagram">
+                            </div>
+                            <div class="autofit-img">
+                                <img src="Images/Projects/ReliabilityGaN/setup.png" alt="Reliablity Characterization Setup">
+                            </div>
                         </div>
                         <details class="body-info-texts">
                             <summary>
-                                Compact and efficient design of DC-DC converter to charge a battery pack by another with wide range of battery voltage support and isolation
-                                <span class="expand-detail-text">(Click to toggle details)</span>
+                                To understand the degradation of GaN HEMTs under actual power converter operating conditions across a wide range of environments, reliability tests are performed on commercial GaN HEMTs.
                             </summary>
                             <div class="collapsed-texts">
-                                <b>Objective:</b>
-                                To charge one battery pack by another irrespective of their voltage level within safety values with an option of parallel operation of multiple converters<br/>
-                                <b>Methodology:</b>
-                                Considering space constraints and wide range of input-output values depending upon the SOC of the battery pack, the LLC Converter is selected. The exact parameter of the converter is to e calculated for required parameters.The frequency and other parameters is to be optimized for maximum efficiency and light load considerations.<br/>
-                                <b>Results:</b>
-                                Calculation and simulation of parameters are done in MATLAB with very high efficiency. Isolated voltage measurement and driving circuit is to be designed and simulated before building the first prototype.<br/>
-                                <b>[Note: Work is in progress]</b>
+                                <b>What:</b>
+                                Reliability characterization of commercial GaN HEMTs operating in emulated lunar envinronment- from 50K to 400K.
+                                <br/>
+                                <b>How:</b>
+                                <ul>
+                                    <li>An environmental chamber using liquid helium based cryocooler and heater to achieve required temperature range</li>
+                                    <li>Design of realistic stress emulation platform with online monitoring</li>
+                                    <li>Periodic offline characterization for I-V characteristics extraction</li>
+                                </ul>
                             </div>
                         </details>
                     </div>
                 </div>
-                <div class="body-info-item">
+                <div class="body-info-item timeline-item solid-timeline">
+                    <div class="body-info-date">
+                        Jan 2024 - Jan 2025
+                    </div>
+                    <div class="body-info-title">
+                        Static Characterization of Commercial GaN Power Semiconductors
+                    </div>
+                    <div class="body-info-details">
+                        <div class="body-info-images">
+                            <div class="autofit-img">
+                                <img src="Images/Projects/StaticGaN/IVCharSample.png" alt="Sample of IV characteristics">
+                            </div>
+                            <div class="autofit-img">
+                                <img src="Images/Projects/StaticGaN/circuit.png" alt="Static characterization circuit diagram">
+                            </div>
+                            <div class="autofit-img">
+                                <img src="Images/Projects/StaticGaN/setupHardware.png" alt="Static Characterization Setup">
+                            </div>
+                        </div>
+                        <details class="body-info-texts">
+                            <summary>
+                               Since prior studies showed promising GaN HEMT performance beyond manufacturer-specified temperature limits, we conducted static characterization across these extreme ranges. This allowed us to examine temperature-dependent trends in key device parameters not covered by existing specifications.
+                            </summary>
+                            <div class="collapsed-texts">
+                                <b>Collaborators:</b>
+                                Purushottam Khadka, Saumil Shivdikar Chandrakant
+                                <br/>
+                                <br/>
+                                
+                                <b>What:</b>
+                                Static characterization of commercial GaN HEMTs from major vendors at 50-400K.
+                                <br/>
+                                <b>How:</b>
+                                <ul>
+                                    <li>Used commercial curve tracer for static charctierzation : I-V and leakage characterization</li>
+                                    <li>Use of cryocooler based environmental chamber to achieve desired temperatures</li>
+                                    <li>Design of automated setup to cycle temperatures and characterize 4 samples consequently</li>
+                                </ul>
+                                <b>Results:</b>
+                                <ul>
+                                    <li>Characterization of commercial GaN HEMTs from major vendors at targeted temperatures of 50-400K.</li>
+                                    <li>Positive, negaive and leakage characterization of samples including transfer characteristics.</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                <div class="body-info-item timeline-item solid-timeline">
                     <div class="body-info-date">
                         June 2021 - Apr 2022
                     </div>
                     <div class="body-info-title">
-                        "Inductive Power Transfer: Electric Scooter based Design"
+                        Wireless Power Transfer: Electric Scooter based Design
                     </div>
                     <div class="body-info-details">
                         <div class="body-info-images">
-                            <img src="Images/ind-1.jpg" alt="Inductive Image 1">
-                            <img src="Images/ind-2.png" alt="Induc Image 2">
-                            <img src="Images/ind-3.jpg" alt="Induc Image 3">
+                            <div class="autofit-img">
+                                <img src="Images/Projects/WPT/circuit.png" alt="WPT circuit">
+                            </div>
+                            <div class="autofit-img">
+                                <img src="Images/Projects/WPT/fieldSim.png" alt="WPT simulation">
+                            </div>
+                            <div class="autofit-img">
+                                <img src="Images/Projects/WPT/team.jpg" alt="WPT team photo">
+                            </div>
                         </div>
                         <details class="body-info-texts">
                             <summary>
-                                Design of wireless power transfer system to charger the electric vehicle with efficient power and room for misalignment to some extent was done as a final year (two semester) project in a four students group
-                                <span class="expand-detail-text">(Click to toggle details)</span>
+                                For our year-long undergraduate capstone project, we designed and optimized a wireless power transfer system for a commercial electric scooter. We successfully demonstrated a working hardware prototype, which was well received by the department.
                             </summary>
                             <div class="collapsed-texts">
-                                <b>Objective:</b>
-                                To transfer the power upto 150W within the range of 20cm and space constrained by the base area of the scooter taken as a reference. The room of misalignment were to be provided with safety to living beings according to health standards.<br/>
-                                <b>Methodology:</b>
-                                Inductive wireless power transfer was chosen as near field high power transmission. The magnetic field standards limited the flux density around the coils, which was used to optimize the different coil designs within the mechanical constraints. Different coil shapes and dimentions were simulated in Multiphysics Simulation tool to select the optimal design for our requirement. The electronic circuit of the system was then designed and simulated with parts available to our area.<br/>
+                                <b>Collaborators:</b> Peter Multiverse (Ganesh Rai), Abinash Man Karmacharya and Anjana Shrestha <br/>
+                                <br/>
+                                <b>What:</b>
+                                    Simulation and hardware prototype development of inductive resontant coupling based wireless power transfersystem for electric scooter - transfering power from ground pad to coil at base of the scooter.<br/>
+                                <b>How:</b>
+                                <ul>
+                                    <li>Design and optimization of coil design at given constraints in COMSOL Multiphysics Tool</li>
+                                    <li>Design of half bridge inverter with inductive power transfer using S-S topology</li>
+                                    <li>Design of gate driver circuits using isolated-tranformer topology</li>
+                                    <li>Development of hardware prototype using matrix board and off the shelf parts</li>
+                                </ul>
                                 <b>Results:</b>
-                                The project was presented to department with working hardware prototype. The device performance was calculated and found to meet the criteria specified. The maximum efficiency of the power transfer was achieved upto 90%.<br/>
-                                <a href="Inductive-Resonance-Power-Transfer-Final-Year-Project-Report.pdf" target="_blank">View final year project report↗</a>
+                                <ul>
+                                    <li>Successful design and demonstration of working prototype on project defence</li>
+                                    <li>Optimized coil design within dimensional constraints and limiting maximum flux density to 80 mT</li>
+                                    <li>Working hardware prototype with power transfered upto 150W achieving maximum power transfer efficiency of 90%</li>
+                                </ul>
+                                <a href="./Files/Inductive-Resonance-Power-Transfer-Final-Year-Project-Report.pdf" target="_blank" title="Click to view project report">View project report↗</a>
                             </div>
                         </details>
                     </div>
                 </div>
-                <div class="body-info-item">
+                <div class="body-info-item timeline-item solid-timeline">
                     <div class="body-info-date">
-                        Mar 2021 - Apr 2021
+                        Dec 2019 - Jan 2020
                     </div>
                     <div class="body-info-title">
-                        "Induction Heater Case Study and Model Design"<br/>
-                        Winner, Energy Hackathon 4.0
+                        Induction Heater Design and Case Study
                     </div>
                     <div class="body-info-details">
-                        <div class="body-info-images single-image">
-                            <img src="Images/enrgy.jpg" alt="">
+                        <div class="body-info-images">
+                            <div class="autofit-img">
+                                <img src="Images/Projects/inductionHeater.jpg" alt="Concentrating Solar Diagram">
+                            </div>
                         </div>
                         <details class="body-info-texts">
                             <summary>
-                                Detailed analysis of "Transition from LPG to induction heater in Nepal" was done with latest Nepal Electricity Data and scientific forecasting methods. Also, the prototype hardware model of induction heater compatiable with market availale coils was done.
-                                <span class="expand-detail-text">(Click to toggle details)</span>
+                                As part of an energy hackathon organized to explore sustainable solutions, we studied the feasibility of replacing traditional LPG-based cooking in the Kathmandu Valley with an induction heater-based approach. Our analysis considered projected energy generation and demand trends over the next five years. To support the case for local adoption, we built a functional induction heater prototype demonstrating the potential for in-country production. Our team <b>won</b> the hackathon in the efficiency category.
                             </summary>
                             <div class="collapsed-texts">
-                                <b>Objective:</b>
-                                As it was 'Energy Hackathon', our objective was to perform scientific analysis of impact under the transition from LPG to induction heater in current grid system and overall economy of people and nation in Nepal and present whether it is good idea or not.<br/>
-                                <b>Methodology:</b>
-                                With latest consmer data from NEA (Nepal Electricity Authority), the consumption of electrical energy and LPG import in Nepal were forecasted with both NEA forecast and other standard forecast stats. In future, if energy from LPG was to be replaced by the induction cooker, the total energy per person and total cost per person was calculated. At the same time, the impact of this consumption in grid considering cooking time in Nepal and energy cost with peak hour load in the grid.<br/>
+                                <b>Team Name:</b> NT RAYS<br>
+                                <b>Collaborators:</b> Abinash Man Karmacharya, Peter Multiverse (Ganesh Rai), Anjana Shrestha <br>
+                                <br>
+                                <b>What:</b>
+                                Case study of induction heater cooking to replace LPG cooking in Kathmandu Valley with in-country manufactoring<br/>
+                                <b>How:</b>
+                                <ul>
+                                    <li>Use of official Nepal Electricity Authority (NEA) data for demand and generation of electrical energy</li>
+                                    <li>Local manufactoring of induction heaters for cost effective heaters production </li>
+                                    <li>Comparison and feasibility of the induction heater based solution at peak loading hours</li>
+                                </ul>
                                 <b>Results:</b>
-                                The result from the analysis were presented in hackathon with detailed benifits and challenges anaylsis along with steps to be taken in advance. Also, the ZVS circuit induction heater model were prepared to demonstrate the possibility of induction heater product development in Nepal. The idea was appreciated by judges with valuable feedbacks. We won under efficiency theme.<br/>
+                                <ul>
+                                    <li>With clear upward generation trend surpassing electricity consumption demand, the study showed that future generation is capable of providing heater cooking demand</li>
+                                    <li>Comparing cooking cost to LPG cooking revealed about 50% save in energy cost</li>
+                                    <li>Updating grid side stability components and infrastructure revealed the shorter payback period</li>
+                                </ul>
                             </div>
                         </details>
                     </div>
                 </div>
-                <div class="body-info-item">
+                <div class="body-info-item timeline-item solid-timeline">
                     <div class="body-info-date">
                         Feb 2018 - Mar 2018
                     </div>
                     <div class="body-info-title">
-                        "Spherical Hybrid Black Body Solar"
+                        Ferrous Black Body based Concentrating Solar
                     </div>
                     <div class="body-info-details">
                         <div class="body-info-images">
-                            <img src="Images/solar-1.jpg" alt="Solar Image 1">
-                            <img src="Images/solar-2.jpg" alt="Solar Image 2">
-                            <img src="Images/solar-3.jpg" alt="Solar Image 3">
+                            <div class="autofit-img">
+                                <img src="Images/Projects/concSolar/diagram.png" alt="Concentrating Solar Diagram">
+                            </div>
+                            <div class="autofit-img">
+                                <img src="Images/Projects/concSolar/solarBox.jpg" alt="Concentrating Solar Array Box">
+                            </div>
+                            <div class="autofit-img">
+                                <img src="Images/Projects/concSolar/team.jpg" alt="Concentrating Solar Team">
+                            </div>
                         </div>
                         <details class="body-info-texts">
                             <summary>
-                                Inspired by 'Ferrous Black Body', the solar rays concentraing and reflection free system was designed to be used lightly sunny areas and to reduce the the panel cost by removing the need of ARC (Anti-Reflective Coating).
-                                <span class="expand-detail-text">(Click to toggle details)</span>
+                                In Himalayan regions, solar panels operate under significantly lower insolation, reducing their power output and overall feasibility. To address this, we designed a system that improves panel efficiency by concentrating solar rays and minimizing reflection losses through effective light trapping.
                             </summary>
                             <div class="collapsed-texts">
-                                <b>Objective:</b>
-                                To justify the price of solar panels specially in hilly areas, where solar insolation is very low, we aimed to design the system to improve overall efficiency of the system without increasing the cost.<br/>
-                                <b>Methodology:</b>
-                                As the panel power rating and surface area was optimized to be used in different areas of the world, the panel was working at very less optimal condition that it was designed for. The solar insolation in hilly areas is very low and thus the price of panel cannot be justified in those areas. Also, ARC (Anti-Reflective) coating adds the more cost to the panel. We utilized 'Ferrous Black Body' concept to increase the solar insolation within safe values and to eliminate the need of ARC. Parabolic dish antenna were covered with mirror to focus the solar rays which was passed through spherically arranged solar panels which was intended to elimate the reflection.<br/>
+                                <b>Collaborators:</b> Mahesh Sharma, Keshav Sharma and Lal Babu Mahato <br>
+                                <br>
+                                <b>What:</b>
+                                Ferrous black body inspired solar rays concentraing system to improve utility of solar panels
+                                <br/>
+                                <b>How:</b>
+                                <ul>
+                                    <li>Large parabolic rays concentraing disc panel to increase solar intensity to panels</li>
+                                    <li>Solar box to trap incident rays to reduce losses in reflection</li>
+                                    <li>Use of mirros to fill in gaps to redirect rays</li>
+                                </ul>
                                 <b>Results:</b>
-                                The hardware model was prepared with solar insolation increment achieved upto 50%. The open circuit voltage was measured to measure the effect. The project was presented at LOCUS Exhibition 2018, and we secured second position under electrical theme.<br/>
+                                <ul>
+                                    <li>50% increase in solar panel output</li>
+                                </ul>
                             </div>
                         </details>
                     </div>
@@ -641,101 +399,176 @@
             </div>
         </section>
         
-        <section class="spacer-section">
-            <div class="spacer-item"></div>
-        </section>
-
-        <section class="body-infos-section" id="about">
+        <section class="body-info-section" id="publications">
             <div class="body-info-header-text">
-                About me
+                Publications
             </div>
             <div class="body-infos-contents">
-                <div class="body-info-item">
-                    <div class="body-info-date quote-date">
-                        We are not strangers, only the introduction is missing.
+                <!-- <div class="body-info-date">
+                    My publication is currently under review. I will update this section once it is published. Thank you!
+                </div> -->
+                <div class="body-info-item timeline-item dashed-timeline">
+                    <div class="body-info-date">
+                        March 2025
                     </div>
-                    <div class="normal-text-paragraph">
-                        Hello again, I am Dilip Rana. As I mentioned, I have a bachelor's degree in electrical engineering from Tribhuvan University Pulchowk Campus, which I completed in 2022. I have always been passionate about electrical engineering and power electronics, which made me choose this path in the first place.<br/><br/>
-                        As an engineer, I can design, simulate, analyze and prototype the electrical and electronic circuits. MATLAB Simulink and Multisim are my first choice to simulate circuits whereas, I prefer designing PCBs in KiCAD. I really love working on hardware and prototyping projects rather than just the simulation.<br/><br/>  
-                        I have worked on a wide variety of projects and competed in various competitions that have allowed me to test what I’ve learned and taught me important things along the day. Working as an embedded hardware engineer at <a href="https://yatrimotorcycles.com/" target="_blank">Yatri Motorcycles</a>, I understood the value of collaboration from different area of expertise and clear communication between the team members.<br/><br/>
-                        Besides engineering, I am fascinated by origami art. Just folding the paper and making amazing art pieces have captivated me. Even though I am not any good at it, the planning and dedication required for this art really inspires me.<br/><br/>
-                        You can <a href="Dilip Rana - CV.pdf" target="_blank" class="">view my CV↗</a>, if you want to learn more.
+
+                    <div class="publication-item-container">
+                        <div class="body-info-title publication-title">
+                            Automated Characterization Platform for Comprehensive Dynamic Rdson Assessment of GaN HEMTs From 50 K to 400 K
+                        </div>
+                        <div class="body-info-date publication-authors">
+                           Tian Qiu, Zheyu Zhang, Purushottam Khadka, Ahmed Siraj, Dilip Rana
+                        </div>
+                        <div class="body-info-details">
+                            <div class="body-info-images">
+                                <div class="autofit-img">
+                                    <img src="Images/Publications/DynamicRds/dynamicRds.gif" alt="Dynamic Rds ON Trend of GaN">
+                                </div>
+                                <div class="autofit-img">
+                                    <img src="Images/Publications/DynamicRds/circuitOperation.gif" alt="Operating Circuit">
+                                </div>
+                                <div class="autofit-img">
+                                    <img src="Images/Publications/DynamicRds/hardware.gif" alt="Circuit Hardware">
+                                </div>
+                            </div>
+                            <details class="body-info-texts">
+                                <summary>
+                                    <b>Abstract:</b>
+                                    Gallium Nitride (GaN) HEMTs demonstrate superior performance at cryogenic temperatures, making them promising candidates for lunar missions where temperatures vary from 50 to 400 K. However, the current collapse effect increases dynamic on-state resistance (Rdson) during switching, leading to additional energy loss, especially in high-frequency applications. To conduct a comprehensive study with high efficiency, we developed an automated characterization platform for dynamic Rdson extraction under multi-stressor conditions. The design considerations include 1) programmable stressors such as temperatures, voltages, currents, etc., 2) electrothermal-mechanical compatibility with the cryocooler across a wide temperature range, and 3) software framework for full automation. Results for a commercial GaN HEMT show that dynamic Rdson varies non-monotonically with temperature increment, as it increases at 50 - 180 K and then decreases a 180 - 400 K. Dynamic Rdson follows this trend at both hard- and soft-switching, but is more sensitive to stressors at hard switching, while remaining nearly unchanged at soft switching, indicating that, under this testing plan that applies low stressing voltages, hot electron effect makes the major contribution to dynamic Rdson.
+                                </summary>
+                                <div class="collapsed-texts">
+                                    <a href="https://ieeexplore.ieee.org/abstract/document/10977105" title="Click to open IEEE link" target="_blank">Open IEEE link↗</a>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- <div class="body-info-item timeline-item dashed-timeline">
+                    <div class="body-info-date">
+                        June 2021 - Apr 2022
+                    </div>
+                    
+                    <div class="publication-item-container">
+                        <div class="body-info-title">
+                            Inductive Power Transfer: Electric Scooter based Design
+                        </div>
+                        <div class="body-info-details">
+                            <div class="body-info-images">
+                                <div class="autofit-img">
+                                    <img src="Images/ind-1.jpg" alt="Inductive Image 1">
+                                </div>
+                                <div class="autofit-img">
+                                    <img src="Images/ind-2.png" alt="Induc Image 2">
+                                </div>
+                                <div class="autofit-img">
+                                    <img src="Images/ind-3.jpg" alt="Induc Image 3">
+                                </div>
+                            </div>
+                            <details class="body-info-texts">
+                                <summary>
+                                    Design of wireless power transfer system to charger the electric vehicle with efficient power and room for misalignment to some extent was done as a final year (two semester) project in a four students group
+                                </summary>
+                                <div class="collapsed-texts">
+                                    <b>Objective:</b>
+                                    To transfer the power upto 150W within the range of 20cm and space constrained by the base area of the scooter taken as a reference. The room of misalignment were to be provided with safety to living beings according to health standards.<br/>
+                                    <b>Methodology:</b>
+                                    Inductive wireless power transfer was chosen as near field high power transmission. The magnetic field standards limited the flux density around the coils, which was used to optimize the different coil designs within the mechanical constraints. Different coil shapes and dimentions were simulated in Multiphysics Simulation tool to select the optimal design for our requirement. The electronic circuit of the system was then designed and simulated with parts available to our area.<br/>
+                                    <b>Results:</b>
+                                    The project was presented to department with working hardware prototype. The device performance was calculated and found to meet the criteria specified. The maximum efficiency of the power transfer was achieved upto 90%.<br/>
+                                    <a href="Inductive-Resonance-Power-Transfer-Final-Year-Project-Report.pdf" target="_blank">View final year project report↗</a>
+                                </div>
+                            </details>
+                        </div>
                     </div>
                 </div>
+                <div class="body-info-item timeline-item dashed-timeline">
+                    <div class="body-info-date">
+                        Mar 2021 - Apr 2021
+                    </div>
+                    <div class="publication-item-container">
+                        <div class="body-info-title">
+                            Induction Heater Case Study and Model Design<br/>
+                            Winner, Energy Hackathon 4.0
+                        </div>
+                        <div class="body-info-details">
+                            <div class="body-info-images single-image">
+                                <div class="autofit-img">
+                                    <img src="Images/enrgy.jpg" alt="">
+                                </div>
+                            </div>
+                            <details class="body-info-texts">
+                                <summary>
+                                    Detailed analysis of "Transition from LPG to induction heater in Nepal" was done with latest Nepal Electricity Data and scientific forecasting methods. Also, the prototype hardware model of induction heater compatiable with market availale coils was done.
+                                    <span class="expand-detail-text">(Click to toggle details)</span>
+                                </summary>
+                                <div class="collapsed-texts">
+                                    <b>Objective:</b>
+                                    As it was 'Energy Hackathon', our objective was to perform scientific analysis of impact under the transition from LPG to induction heater in current grid system and overall economy of people and nation in Nepal and present whether it is good idea or not.<br/>
+                                    <b>Methodology:</b>
+                                    With latest consmer data from NEA (Nepal Electricity Authority), the consumption of electrical energy and LPG import in Nepal were forecasted with both NEA forecast and other standard forecast stats. In future, if energy from LPG was to be replaced by the induction cooker, the total energy per person and total cost per person was calculated. At the same time, the impact of this consumption in grid considering cooking time in Nepal and energy cost with peak hour load in the grid.<br/>
+                                    <b>Results:</b>
+                                    The result from the analysis were presented in hackathon with detailed benifits and challenges anaylsis along with steps to be taken in advance. Also, the ZVS circuit induction heater model were prepared to demonstrate the possibility of induction heater product development in Nepal. The idea was appreciated by judges with valuable feedbacks. We won under efficiency theme.<br/>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div> -->
             </div>
-        </section>
-
-        <section class="spacer-section">
-            <div class="spacer-item"></div>
         </section>
         
-        <section class="body-infos-section" id="contact">
+        <section class="body-info-section" id="contact">
             <div class="body-info-header-text">
-                Contact me
+                Contact info
             </div>
             <div class="body-infos-contents">
-                <div class="body-info-item">
-                    <div class="body-info-date quote-date">
-                        I am just eager know you as well.
+                <div class="body-info-item contact-cards">
+                    <div class="contact-card">
+                        <img src="Images/Contact/outlook.png" alt="Outlook icon">
+                        <div class="contact-site-text">Email Addresss:</div>
+                        <div class="contact-link">
+                            ranad@rpi.edu
+                            <button class="copy-button" onclick="copyToClipboard('ranad@rpi.edu')" title="Click to copy email address"><div class="copy-icon">&nbsp</div></button>
+                        </div>
+                        <a href="mailto:ranad@rpi.edu.com" class="contact-open-link" title="Click to open email app" onclick="openToast('Opening email app...')">Send Email</a>
                     </div>
-                    <div class="contact-links">
-                        <a href="mailto:ranadilip439@gmail.com">
-                            <img src="Images/Gmail_icon.webp" alt="Gmail Icon">
-                        </a>
-                        <a href="https://github.com/DilipRana">
-                            <img src="Images/Github_icon.png" alt="Gmail Icon">
-                        </a>
-                        <a href="https://www.linkedin.com/in/dilip-rana-b657931b4">
-                            <img src="Images/Linkedin_icon.png" alt="Gmail Icon">
-                        </a>
+                    <div class="contact-card">
+                        <img src="Images/Contact/linkedIn.png" alt="LinkedIn icon">
+                        <div class="contact-site-text">Profile Link:</div>
+                        <div class="contact-link">
+                           linkedin.com/dilip-rana
+                            <button class="copy-button" onclick="copyToClipboard('https://www.linkedin.com/in/dilip-rana/')" title="Click to copy profile link"><div class="copy-icon">&nbsp</div></button>
+                        </div>
+                        <a href="https://www.linkedin.com/in/dilip-rana" target="_blank" class="contact-open-link" title="Click to open link" onclick="openToast('Opening link...')">Open link</a>
+                    </div>
+                    <div class="contact-card">
+                        <img src="Images/Contact/googleScholar.png" alt="Google scholar icon">
+                        <div class="contact-site-text">Profile Link:</div>
+                        <div class="contact-link">
+                            <div class="small-size-link">
+                                scholar.google.com/user=hOYzsCcAAAAJ
+                            </div>
+                            <button class="copy-button" onclick="copyToClipboard('https://scholar.google.com/citations?user=hOYzsCcAAAAJ')" title="Click to copy profile link"><div class="copy-icon">&nbsp</div></button>
+                        </div>
+                        <a href="https://scholar.google.com/citations?user=hOYzsCcAAAAJ" target="_blank" class="contact-open-link" title="Click to open link" onclick="openToast('Opening link...')">Open link</a>
                     </div>
                 </div>
                 <div class="body-info-item">
-                    <div class="body-info-date quote-date">
-                        See you on the flip side
+                    <div class="body-info-date">
+                        Thank you for visiting my website! I look forward to connecting with you.
                     </div>
                 </div>
             </div>
         </section>
     </main>
-
-    <script>
-        //Element viewport checker function
-        function isElementInViewport(el) {
-            const rect = el.getBoundingClientRect();
-            return (
-                rect.top <= window.innerHeight/2.0 &&
-                rect.bottom >= (window.innerHeight)/2.0
-            );
-        }
-
-        //Called after each scroll
-        function handleScroll() {
-            let elements = ['home', 'projects', 'about', 'contact'];
-            let newfocus = '';//Temp. variable to check if any new focus is found
-
-            elements.forEach((element) => {
-                if (isElementInViewport(document.getElementById(element))) {
-                    newfocus = element.valueOf();
-                    return;
-                }
-            });
-
-            //To change navigation active class only if new focus is found
-            if(newfocus.valueOf() != ''){
-                elements.forEach((element) => {
-                    if (element.valueOf() == newfocus.valueOf()) {
-                        document.getElementById(element+"-nav").classList.add('active');
-                    } else {
-                        document.getElementById(element+"-nav").classList.remove('active');
-                    }
-                });
-            }
-        }
-
-        window.addEventListener('scroll', handleScroll);
-        handleScroll();//Check automatically for the first time
-
-    </script>
+    <footer>
+        <a href="#home" class="back-to-top" title="Click to goto top of the site">Goto top</a>
+        <a href="../../../2023" class="old-version" title="Click to visit 2023 version of my website">Goto 2023</a>
+        <div class="copyright-text">©Copyright, Dilip Rana.</div>
+    </footer>
+    <div id="toast" class="toast-hide">
+        Toast text goes here
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
