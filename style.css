@@ -20,6 +20,10 @@ img{
     object-fit: cover;
 }
 
+.search_only{
+    display: none;
+}
+
 #toast{
     position: fixed;
     left: 50%;
