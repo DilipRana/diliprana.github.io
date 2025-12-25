@@ -9,7 +9,7 @@
     <title>Dilip Rana - Personal Website</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="html-body">
     <header>
         <nav class="header-nav">
             <ul class="header-ul underlines">
@@ -19,11 +19,11 @@
                 <li id="experience-nav">
                     <a href="#experience">Experience</a>
                 </li>
-                <li id="projects-nav">
-                    <a href="#projects">Projects</a>
-                </li>
                 <li id="publications-nav">
                     <a href="#publications">Publications</a>
+                </li>
+                <li id="projects-nav">
+                    <a href="#projects">Projects</a>
                 </li>
                 <li id="contact-nav">
                     <a href="#contact">Contact info</a>
@@ -95,14 +95,14 @@
                     </div>
                 </div>
                 <div class="cover-images">
-                    <img src="Images/cover.jpg" alt="Cover photo of Dilip Rana">
+                    <img onclick="openImgStage(this)"  src="Images/cover.png" alt="Cover photo of Dilip Rana">
                 </div>
             </div>
         </section>
 
         <div class="scroll-icon" title="Scroll down for more info">
             <a href="#experience">
-                <img src="./Images/Icons/scroll.png" alt="Scroll icon">
+                <img onclick=""  src="./Images/Icons/scroll.png" alt="Scroll icon">
             </a>
         </div>
 
@@ -113,24 +113,24 @@
             <div class="body-infos-contents">
                 <div class="body-info-item top-border">
                     <div class="body-info-title">
-                        <img src="Images/Icons/research.png" alt="Research icon">
+                        <img onclick=""  src="Images/Icons/research.png" alt="Research icon">
                         Graduate Research Assistant
                     </div>
                     <div class="experience-details">
                         <div class="experience-location-split">
-                            <img src="Images/Experience/RPI/logo.png" alt="RPI Logo" class="experience-location-logo">
+                            <img onclick=""  src="Images/Experience/RPI/logo.png" alt="RPI Logo" class="experience-location-logo">
                             <div class="experience-location-details">
                                 <div class="body-info-date">Jan 2024 - Present (Expected Graduation: 2028)</div>
                                 <div class="experience-company-name">
                                     Rensselaer Polytechnic Institute
                                     <a class="openlink-button" title="Click to open RPI website" href="https://rpi.edu" target="_blank" >
-                                        <img src="Images/Icons/openLink.svg" alt="Open link icon">
+                                        <img onclick=""  src="Images/Icons/openLink.svg" alt="Open link icon">
                                     </a>
                                 </div>
                                 <div class="experience-company-name">
                                     E<sup>x</sup>PERT Team
                                     <a class="openlink-button" title="Click to open ExPERT website" href="https://expertlab.pythonanywhere.com" target="_blank" >
-                                        <img src="Images/Icons/openLink.svg" alt="Open link icon">
+                                        <img onclick=""  src="Images/Icons/openLink.svg" alt="Open link icon">
                                     </a>
                                 </div>
                                 <div class="experience-company-location">Troy, New York, Unites States</div>
@@ -144,34 +144,34 @@
                         </summary>
                         <div class="body-info-images">
                             <div class="autofit-img">
-                                <img src="Images/Experience/RPI/pcb.png" alt="PCB Soldering at RPI">
+                                <img onclick="openImgStage(this)"  src="Images/Experience/RPI/pcb.png" alt="PCB Soldering at RPI">
                             </div>
                             <div class="autofit-img">
-                                <img src="Images/Experience/RPI/coldhead.png" alt="Cyocooler cold head at RPI">
+                                <img onclick="openImgStage(this)"  src="Images/Experience/RPI/coldhead.png" alt="Cyocooler cold head at RPI">
                             </div>
                             <div class="autofit-img">
-                                <img src="Images/Experience/RPI/lab.png" alt="RPI ExPERT lab">
+                                <img onclick="openImgStage(this)"  src="Images/Experience/RPI/lab.png" alt="RPI ExPERT lab">
                             </div>
                             <div class="autofit-img">
-                                <img src="Images/Experience/RPI/teamPhoto.jpg" alt="RPI ExPERT with visitors from GE">
+                                <img onclick="openImgStage(this)"  src="Images/Experience/RPI/teamPhoto.jpg" alt="RPI ExPERT with visitors from GE">
                             </div>
                         </div>
                     </details>
                 </div>
                 <div class="body-info-item top-border bottom-border">
                     <div class="body-info-title">
-                        <img src="Images/Icons/chip.jpg" alt="Chip icon">
+                        <img onclick=""  src="Images/Icons/chip.jpg" alt="Chip icon">
                         Embedded Hardware Engineer
                     </div>
                     <div class="experience-details">
                         <div class="experience-location-split">
-                            <img src="Images/Experience/Yatri/logo.jpg" alt="Yatri Logo" class="experience-location-logo">
+                            <img onclick=""  src="Images/Experience/Yatri/logo.jpg" alt="Yatri Logo" class="experience-location-logo">
                             <div class="experience-location-details">
                                 <div class="body-info-date">Jan 2022 - Dec 2023</div>
                                 <div class="experience-company-name">
                                     Yatri Motorcycles
                                     <a class="openlink-button" title="Click to open Yatri website" href="https://yatrimotorcycles.com" target="_blank">
-                                        <img src="Images/Icons/openLink.svg" alt="Open link icon">
+                                        <img onclick=""  src="Images/Icons/openLink.svg" alt="Open link icon">
                                     </a>
                                 </div>
                                 <div class="experience-company-location">Budhanilkantha, Kathmandu, Nepal</div>
@@ -185,13 +185,13 @@
                         </summary>
                         <div class="body-info-images">  
                             <div class="autofit-img">
-                                <img src="Images/Experience/Yatri/yatriBike.png" alt="Yatri motorcycle in assemply">
+                                <img onclick="openImgStage(this)"  src="Images/Experience/Yatri/yatriBike.png" alt="Yatri motorcycle in assemply">
                             </div>
                             <div class="autofit-img">
-                                <img src="Images/Experience/Yatri/pcbTest.png" alt="PCB tests at Yatri">
+                                <img onclick="openImgStage(this)"  src="Images/Experience/Yatri/pcbTest.png" alt="PCB tests at Yatri">
                             </div>
                             <div class="autofit-img">
-                                <img src="Images/Experience/Yatri/pcbDesign.png" alt="PCB design at Yatri">
+                                <img onclick="openImgStage(this)"  src="Images/Experience/Yatri/pcbDesign.png" alt="PCB design at Yatri">
                             </div>
                         </div>
                     </details>
@@ -199,92 +199,97 @@
             </div>
         </section>
 
-        <section class="body-info-section" id="projects">
+        <section class="body-info-section" id="publications">
             <div class="body-info-header-text">
-                Projects
+                Conferences and Publications
             </div>
             <div class="body-infos-contents">
-                <div class="body-info-item timeline-item solid-timeline">
+                <!-- <div class="body-info-date">
+                    My publication is currently under review. I will update this section once it is published. Thank you!
+                </div> -->
+
+                <div class="body-info-item timeline-item dashed-timeline">
                     <div class="body-info-date">
-                        Jan 2025 - Present
+                        October 2025, ECCE Conference
                     </div>
-                    <div class="body-info-title">
-                        Reliability Characterization of Commercial GaN Power Semiconductors
-                    </div>
-                    <div class="body-info-details">
-                        <div class="body-info-images">
-                            <div class="autofit-img">
-                                <img src="Images/Projects/ReliabilityGaN/circuit.png" alt="Reliability Characterization Circuit Diagram">
-                            </div>
-                            <div class="autofit-img">
-                                <img src="Images/Projects/ReliabilityGaN/setup.png" alt="Reliablity Characterization Setup">
-                            </div>
+
+                    <div class="publication-item-container">
+                        <div class="body-info-title publication-title">
+                            A Universal Reliability Platform for GaN HEMTs with Realistic Stress Emulation, Online Monitoring, and In-Circuit Characterization
                         </div>
-                        <details class="body-info-texts">
-                            <summary>
-                                To understand the degradation of GaN HEMTs under actual power converter operating conditions across a wide range of environments, reliability tests are performed on commercial GaN HEMTs.
-                            </summary>
-                            <div class="collapsed-texts">
-                                <b>What:</b>
-                                Reliability characterization of commercial GaN HEMTs operating in emulated lunar envinronment- from 50K to 400K.
-                                <br/>
-                                <b>How:</b>
-                                <ul>
-                                    <li>An environmental chamber using liquid helium based cryocooler and heater to achieve required temperature range</li>
-                                    <li>Design of realistic stress emulation platform with online monitoring</li>
-                                    <li>Periodic offline characterization for I-V characteristics extraction</li>
-                                </ul>
+                        <div class="body-info-date publication-authors">
+                           Dilip Rana, Tian Qiu, Zheyu Zhang
+                        </div>
+                        <div class="body-info-details">
+                            <div class="body-info-images">
+                                <div class="autofit-img">
+                                    <img onclick="openImgStage(this)"  src="Images/Publications/UniversalReliability/setup.png" alt="Reliability test setup diagram">
+                                </div>
+                                <div class="autofit-img">
+                                    <img onclick="openImgStage(this)"  src="Images/Publications/UniversalReliability/hardware.png" alt="Hardware implementation of reliability test setup">
+                                </div>
+                                <div class="autofit-img">
+                                    <img onclick="openImgStage(this)"  src="Images/Publications/UniversalReliability/hardwareDemo.jpeg" alt="Student demonstration of hardware setup">
+                                </div>
                             </div>
-                        </details>
+                            <details class="body-info-texts">
+                                <summary>
+                                    <b>Abstract:</b>
+                                    Realistic emulation of application operating conditions and effective degradation tracking are essential for accurate reliability assessment of power semiconductors. For gallium nitride (GaN) high electron mobility transistors (HEMTs), even minor modifications to the gate and power loops-introduced for online monitoring or offline characterization-can significantly alter stress dynamics due to the high sensitivity of circuit par-asitics at fast switching speeds. This paper presents a universal reliability test platform for GaN HEMTs, applicable across a wide range of power electronic applications, that accurately emulates application-level stressors while supporting both online degradation monitoring and a novel offline in-circuit characterization approach. An overview of the test platform is first presented, covering its implementation and control strategy. The normal operation mode is then described alongside the real-time degradation tracking methodology. A circuit-based offline characterization method is subsequently presented, enabling extraction of I-V characteristics directly from the device within its operating circuit without hardware modifications. Finally, the platform is experimentally validated using commercial GaN HEMTs stressed in a synchronous buck converter configuration, confirming its accuracy and practicality for both online monitoring and offline characterization.
+                                </summary>
+                                <div class="collapsed-texts">
+                                    <a href="https://ieeexplore.ieee.org/document/11260404" title="Click to open IEEE link" target="_blank">Open IEEE link↗</a>
+                                </div>
+                            </details>
+                        </div>
                     </div>
                 </div>
-                <div class="body-info-item timeline-item solid-timeline">
+                
+                <div class="body-info-item timeline-item dashed-timeline">
                     <div class="body-info-date">
-                        Jan 2024 - Jan 2025
+                        June 2025, IAS Conference
                     </div>
-                    <div class="body-info-title">
-                        Static Characterization of Commercial GaN Power Semiconductors
-                    </div>
-                    <div class="body-info-details">
-                        <div class="body-info-images">
-                            <div class="autofit-img">
-                                <img src="Images/Projects/StaticGaN/IVCharSample.png" alt="Sample of IV characteristics">
-                            </div>
-                            <div class="autofit-img">
-                                <img src="Images/Projects/StaticGaN/circuit.png" alt="Static characterization circuit diagram">
-                            </div>
-                            <div class="autofit-img">
-                                <img src="Images/Projects/StaticGaN/setupHardware.png" alt="Static Characterization Setup">
-                            </div>
+
+                    <div class="publication-item-container">
+                        <div class="body-info-title publication-title">
+                            Reliability Database for Wide Bandgap Power Semiconductors and Module Packaging via Comprehensive Survey and Standardization
                         </div>
-                        <details class="body-info-texts">
-                            <summary>
-                               Since prior studies showed promising GaN HEMT performance beyond manufacturer-specified temperature limits, we conducted static characterization across these extreme ranges. This allowed us to examine temperature-dependent trends in key device parameters not covered by existing specifications.
-                            </summary>
-                            <div class="collapsed-texts">
-                                <b>Collaborators:</b>
-                                Purushottam Khadka, Saumil Shivdikar Chandrakant
-                                <br/>
-                                <br/>
-                                
-                                <b>What:</b>
-                                Static characterization of commercial GaN HEMTs from major vendors at 50-400K.
-                                <br/>
-                                <b>How:</b>
-                                <ul>
-                                    <li>Used commercial curve tracer for static charctierzation : I-V and leakage characterization</li>
-                                    <li>Use of cryocooler based environmental chamber to achieve desired temperatures</li>
-                                    <li>Design of automated setup to cycle temperatures and characterize 4 samples consequently</li>
-                                </ul>
-                                <b>Results:</b>
-                                <ul>
-                                    <li>Characterization of commercial GaN HEMTs from major vendors at targeted temperatures of 50-400K.</li>
-                                    <li>Positive, negaive and leakage characterization of samples including transfer characteristics.</li>
-                                </ul>
+                        <div class="body-info-date publication-authors">
+                           Ahmed Siraj, Dilip Rana, Purushottam Khadka, Annoy Kumar Das, Zheyu Zhang
+                        </div>
+                        <div class="body-info-details">
+                            <div class="body-info-images">
+                                <div class="autofit-img">
+                                    <img onclick="openImgStage(this)"  src="Images/Publications/ReliabilityDatabase/ganFig.png" alt="GaN fishbone and failure locations">
+                                </div>
+                                <div class="autofit-img">
+                                    <img onclick="openImgStage(this)"  src="Images/Publications/ReliabilityDatabase/sicFig.png" alt="SiC fishbone and failure locations">
+                                </div>
+                                <div class="autofit-img">
+                                    <img onclick="openImgStage(this)"  src="Images/Publications/ReliabilityDatabase/packageFig.png" alt="Package fishbone and failure locations">
+                                </div>
                             </div>
-                        </details>
+                            <details class="body-info-texts">
+                                <summary>
+                                    <b>Abstract:</b>
+                                    The reliability of power electronic (PE) systems is becoming increasingly critical as these technologies are integrated into mission-critical applications. Accurate lifetime prediction for high-failure-rate components, such as power semiconductors and packaging, is essential for ensuring long-term efficient system performance. However, developing high-fidelity lifetime models requires a thorough understanding of underlying physics-of-failure (POF) mechanisms and extensive stress testing, which is often prohibitively costly and time-consuming when conducted individually. This study addresses these challenges by establishing a centralized reliability database, developed through a comprehensive survey of failure mode and effects analysis (FEMA) for the most vulnerable components in PE systems. Lifetime models associated with dominant failure mechanisms are compiled and standardized, including the extraction of key model coefficients, to support consistent and efficient reliability assessments. The resulting database serves as a valuable resource for benchmarking and guiding future research. The focus is placed on wide bandgap (WBG) power semiconductors and module packaging, two of the most failure-prone elements in modern power electronic converters. Additionally, this study identifies existing research gaps and proposes a structured roadmap for advancing the development of a comprehensive reliability database.
+                                </summary>
+                                <div class="collapsed-texts">
+                                    <a href="https://ieeexplore.ieee.org/document/11061764" title="Click to open IEEE link" target="_blank">Open IEEE link↗</a>
+                                </div>
+                            </details>
+                        </div>
                     </div>
                 </div>
+                
+            </div>
+        </section>
+
+        <section class="body-info-section" id="projects">
+            <div class="body-info-header-text">
+                Other Projects
+            </div>
+            <div class="body-infos-contents">
                 <div class="body-info-item timeline-item solid-timeline">
                     <div class="body-info-date">
                         June 2021 - Apr 2022
@@ -295,13 +300,13 @@
                     <div class="body-info-details">
                         <div class="body-info-images">
                             <div class="autofit-img">
-                                <img src="Images/Projects/WPT/circuit.png" alt="WPT circuit">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/WPT/circuit.png" alt="WPT circuit">
                             </div>
                             <div class="autofit-img">
-                                <img src="Images/Projects/WPT/fieldSim.png" alt="WPT simulation">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/WPT/fieldSim.png" alt="WPT simulation">
                             </div>
                             <div class="autofit-img">
-                                <img src="Images/Projects/WPT/team.jpg" alt="WPT team photo">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/WPT/team.jpg" alt="WPT team photo">
                             </div>
                         </div>
                         <details class="body-info-texts">
@@ -341,7 +346,7 @@
                     <div class="body-info-details">
                         <div class="body-info-images">
                             <div class="autofit-img">
-                                <img src="Images/Projects/inductionHeater.jpg" alt="Concentrating Solar Diagram">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/inductionHeater.jpg" alt="Concentrating Solar Diagram">
                             </div>
                         </div>
                         <details class="body-info-texts">
@@ -380,13 +385,13 @@
                     <div class="body-info-details">
                         <div class="body-info-images">
                             <div class="autofit-img">
-                                <img src="Images/Projects/concSolar/diagram.png" alt="Concentrating Solar Diagram">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/concSolar/diagram.png" alt="Concentrating Solar Diagram">
                             </div>
                             <div class="autofit-img">
-                                <img src="Images/Projects/concSolar/solarBox.jpg" alt="Concentrating Solar Array Box">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/concSolar/solarBox.jpg" alt="Concentrating Solar Array Box">
                             </div>
                             <div class="autofit-img">
-                                <img src="Images/Projects/concSolar/team.jpg" alt="Concentrating Solar Team">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/concSolar/team.jpg" alt="Concentrating Solar Team">
                             </div>
                         </div>
                         <details class="body-info-texts">
@@ -407,99 +412,11 @@
                                 </ul>
                                 <b>Results:</b>
                                 <ul>
-                                    <li>50% increase in solar panel output</li>
+                                    <li>Upto 50% increase in open circuit voltage</li>
                                 </ul>
                             </div>
                         </details>
                     </div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="body-info-section" id="publications">
-            <div class="body-info-header-text">
-                Publications
-            </div>
-            <div class="body-infos-contents">
-                <!-- <div class="body-info-date">
-                    My publication is currently under review. I will update this section once it is published. Thank you!
-                </div> -->
-
-                
-                
-                <div class="body-info-item timeline-item dashed-timeline">
-                    <div class="body-info-date">
-                        June 2025
-                    </div>
-
-                    <div class="publication-item-container">
-                        <div class="body-info-title publication-title">
-                            Reliability Database for Wide Bandgap Power Semiconductors and Module Packaging via Comprehensive Survey and Standardization
-                        </div>
-                        <div class="body-info-date publication-authors">
-                           Ahmed Siraj, Dilip Rana, Purushottam Khadka, Annoy Kumar Das, Zheyu Zhang
-                        </div>
-                        <div class="body-info-details">
-                            <div class="body-info-images">
-                                <div class="autofit-img">
-                                    <img src="Images/Publications/ReliabilityDatabase/ganFig.gif" alt="GaN fishbone and failure locations">
-                                </div>
-                                <div class="autofit-img">
-                                    <img src="Images/Publications/ReliabilityDatabase/sicFig.gif" alt="SiC fishbone and failure locations">
-                                </div>
-                                <div class="autofit-img">
-                                    <img src="Images/Publications/ReliabilityDatabase/packageFig.gif" alt="Package fishbone and failure locations">
-                                </div>
-                            </div>
-                            <details class="body-info-texts">
-                                <summary>
-                                    <b>Abstract:</b>
-                                    The reliability of power electronic (PE) systems is becoming increasingly critical as these technologies are integrated into mission-critical applications. Accurate lifetime prediction for high-failure-rate components, such as power semiconductors and packaging, is essential for ensuring long-term efficient system performance. However, developing high-fidelity lifetime models requires a thorough understanding of underlying physics-of-failure (POF) mechanisms and extensive stress testing, which is often prohibitively costly and time-consuming when conducted individually. This study addresses these challenges by establishing a centralized reliability database, developed through a comprehensive survey of failure mode and effects analysis (FEMA) for the most vulnerable components in PE systems. Lifetime models associated with dominant failure mechanisms are compiled and standardized, including the extraction of key model coefficients, to support consistent and efficient reliability assessments. The resulting database serves as a valuable resource for benchmarking and guiding future research. The focus is placed on wide bandgap (WBG) power semiconductors and module packaging, two of the most failure-prone elements in modern power electronic converters. Additionally, this study identifies existing research gaps and proposes a structured roadmap for advancing the development of a comprehensive reliability database.
-                                </summary>
-                                <div class="collapsed-texts">
-                                    <a href="https://ieeexplore.ieee.org/document/11061764" title="Click to open IEEE link" target="_blank">Open IEEE link↗</a>
-                                </div>
-                            </details>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="body-info-item timeline-item dashed-timeline">
-                    <div class="body-info-date">
-                        March 2025
-                    </div>
-
-                    <div class="publication-item-container">
-                        <div class="body-info-title publication-title">
-                            Automated Characterization Platform for Comprehensive Dynamic Rdson Assessment of GaN HEMTs From 50 K to 400 K
-                        </div>
-                        <div class="body-info-date publication-authors">
-                           Tian Qiu, Zheyu Zhang, Purushottam Khadka, Ahmed Siraj, Dilip Rana
-                        </div>
-                        <div class="body-info-details">
-                            <div class="body-info-images">
-                                <div class="autofit-img">
-                                    <img src="Images/Publications/DynamicRds/dynamicRds.gif" alt="Dynamic Rds ON Trend of GaN">
-                                </div>
-                                <div class="autofit-img">
-                                    <img src="Images/Publications/DynamicRds/circuitOperation.gif" alt="Operating Circuit">
-                                </div>
-                                <div class="autofit-img">
-                                    <img src="Images/Publications/DynamicRds/hardware.gif" alt="Circuit Hardware">
-                                </div>
-                            </div>
-                            <details class="body-info-texts">
-                                <summary>
-                                    <b>Abstract:</b>
-                                    Gallium Nitride (GaN) HEMTs demonstrate superior performance at cryogenic temperatures, making them promising candidates for lunar missions where temperatures vary from 50 to 400 K. However, the current collapse effect increases dynamic on-state resistance (Rdson) during switching, leading to additional energy loss, especially in high-frequency applications. To conduct a comprehensive study with high efficiency, we developed an automated characterization platform for dynamic Rdson extraction under multi-stressor conditions. The design considerations include 1) programmable stressors such as temperatures, voltages, currents, etc., 2) electrothermal-mechanical compatibility with the cryocooler across a wide temperature range, and 3) software framework for full automation. Results for a commercial GaN HEMT show that dynamic Rdson varies non-monotonically with temperature increment, as it increases at 50 - 180 K and then decreases a 180 - 400 K. Dynamic Rdson follows this trend at both hard- and soft-switching, but is more sensitive to stressors at hard switching, while remaining nearly unchanged at soft switching, indicating that, under this testing plan that applies low stressing voltages, hot electron effect makes the major contribution to dynamic Rdson.
-                                </summary>
-                                <div class="collapsed-texts">
-                                    <a href="https://ieeexplore.ieee.org/abstract/document/10977105" title="Click to open IEEE link" target="_blank">Open IEEE link↗</a>
-                                </div>
-                            </details>
-                        </div>
-                    </div>
-                    
                 </div>
             </div>
         </section>
@@ -511,7 +428,7 @@
             <div class="body-infos-contents">
                 <div class="body-info-item contact-cards">
                     <div class="contact-card">
-                        <img src="Images/Contact/outlook.png" alt="Outlook icon">
+                        <img onclick=""  src="Images/Contact/outlook.png" alt="Outlook icon">
                         <div class="contact-site-text">Email Addresss:</div>
                         <div class="contact-link">
                             ranad@rpi.edu
@@ -520,7 +437,7 @@
                         <a href="mailto:ranad@rpi.edu.com" class="contact-open-link" title="Click to open email app" onclick="openToast('Opening email app...')">Send Email</a>
                     </div>
                     <div class="contact-card">
-                        <img src="Images/Contact/linkedIn.png" alt="LinkedIn icon">
+                        <img onclick=""  src="Images/Contact/linkedIn.png" alt="LinkedIn icon">
                         <div class="contact-site-text">Profile Link:</div>
                         <div class="contact-link">
                            linkedin.com/dilip-rana
@@ -529,7 +446,7 @@
                         <a href="https://www.linkedin.com/in/dilip-rana" target="_blank" class="contact-open-link" title="Click to open link" onclick="openToast('Opening link...')">Open link</a>
                     </div>
                     <div class="contact-card">
-                        <img src="Images/Contact/googleScholar.png" alt="Google scholar icon">
+                        <img onclick=""  src="Images/Contact/googleScholar.png" alt="Google scholar icon">
                         <div class="contact-site-text">Profile Link:</div>
                         <div class="contact-link">
                             <div class="small-size-link">
@@ -547,6 +464,7 @@
                 </div>
             </div>
         </section>
+
     </main>
     <footer>
         <a href="#home" class="back-to-top" title="Click to goto top of the site">Goto top</a>
@@ -555,6 +473,14 @@
     </footer>
     <div id="toast" class="toast-hide">
         Toast text goes here
+    </div>
+    
+    <div id="image-stage" class="stage-close">
+        <div id="stage-blank-space" onclick="closeImgStage()"></div>
+        <div id="stage-container">
+            <button id="stage-close-btn"  onclick="closeImgStage()" title="Click here or outside image to close">⛌</button>
+            <img id="stage-image" src="" alt="Zoomed clicked iamge">
+        </div>
     </div>
     <script src="script.js"></script>
 </body>

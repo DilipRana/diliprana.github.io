@@ -48,5 +48,18 @@ function openToast(toastString){
 
 }
 
+function openImgStage(element){
+    // Do it twice to avoid glitch sometimes
+    document.getElementById('stage-image').src = element.src;
+    document.getElementById('stage-image').src = element.src;
+    document.getElementById('image-stage').className="stage-open";
+    document.getElementById('html-body').className="stop-scroll";
+}
+
+function closeImgStage(){
+    document.getElementById('image-stage').className="stage-close";
+    document.getElementById('html-body').className="enable-scroll";
+}
+
 window.addEventListener('scroll', handleScroll);
 handleScroll();//Check automatically for the first time
