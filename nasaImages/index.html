@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#05060a">
+<title>APOD Wallpaper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --scrim: rgba(8,10,14,0.5);
+    --border: rgba(255,255,255,0.14);
+    --text: #F5F3EE;
+    --text-muted: rgba(245,243,238,0.6);
+    --accent: #F2C879;
+    --accent-glow: rgba(242,200,121,0.35);
+    --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0; padding:0; width:100%; height:100%;
+    overflow:hidden; background:#05060a;
+    font-family: var(--font-mono);
+    -webkit-user-select:none; user-select:none;
+    -webkit-touch-callout:none;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior:none;
+  }
+
+  /* ---------- fullscreen crossfading wallpaper layers ---------- */
+  .bg-layer{
+    position:fixed; inset:0;
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    opacity:0;
+    transition: opacity 1.4s ease;
+    will-change:opacity;
+  }
+  .bg-layer.active{ opacity:1; }
+
+  body.idle{ cursor:none; }
+
+  /* ---------- viewfinder corner brackets (signature detail) ---------- */
+  .bracket{
+    position:fixed; width:26px; height:26px;
+    border-color: rgba(245,243,238,0.5);
+    border-style:solid; border-width:0;
+    opacity:0; transition: opacity .6s ease;
+    pointer-events:none; z-index:5;
+  }
+  body.controls-visible .bracket{ opacity:1; }
+  .bracket-tl{ top: calc(20px + env(safe-area-inset-top)); left: calc(20px + env(safe-area-inset-left)); border-top-width:2px; border-left-width:2px; }
+  .bracket-tr{ top: calc(20px + env(safe-area-inset-top)); right: calc(20px + env(safe-area-inset-right)); border-top-width:2px; border-right-width:2px; }
+  .bracket-bl{ bottom: calc(20px + env(safe-area-inset-bottom)); left: calc(20px + env(safe-area-inset-left)); border-bottom-width:2px; border-left-width:2px; }
+  .bracket-br{ bottom: calc(20px + env(safe-area-inset-bottom)); right: calc(20px + env(safe-area-inset-right)); border-bottom-width:2px; border-right-width:2px; }
+
+  /* ---------- HUD caption (image title / date) ---------- */
+  .hud-caption{
+    position:fixed;
+    left: calc(28px + env(safe-area-inset-left));
+    bottom: calc(28px + env(safe-area-inset-bottom));
+    max-width:min(520px, 60vw);
+    opacity:0; transform: translateY(6px);
+    transition: opacity .6s ease, transform .6s ease;
+    pointer-events:none; z-index:5;
+    text-shadow: 0 1px 14px rgba(0,0,0,0.85);
+  }
+  body.controls-visible .hud-caption{ opacity:1; transform:translateY(0); }
+  .hud-meta{ font-size:11px; letter-spacing:.16em; color:var(--accent); text-transform:uppercase; margin-bottom:6px; }
+  .hud-title{ font-size:13px; letter-spacing:.02em; color:var(--text); line-height:1.5; font-weight:500; }
+
+  /* ---------- control pill ---------- */
+  .controls{
+    position:fixed; left:50%;
+    bottom: calc(30px + env(safe-area-inset-bottom));
+    transform: translateX(-50%) translateY(10px);
+    display:flex; gap:8px; padding:8px;
+    border-radius:999px;
+    background:var(--scrim);
+    border:1px solid var(--border);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    opacity:0; pointer-events:none;
+    transition: opacity .5s ease, transform .5s ease;
+    z-index:10;
+  }
+  body.controls-visible .controls{ opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+
+  .ctrl-btn{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 20px; border-radius:999px;
+    border:1px solid transparent;
+    background:transparent; color:var(--text);
+    font-family:var(--font-mono); font-size:12px;
+    letter-spacing:.12em; font-weight:500;
+    cursor:pointer;
+    transition: background .25s ease, border-color .25s ease, color .25s ease, box-shadow .25s ease;
+  }
+  .ctrl-btn svg{ width:14px; height:14px; flex-shrink:0; }
+  .ctrl-btn:hover, .ctrl-btn:focus-visible{ background: rgba(255,255,255,0.08); border-color: var(--border); }
+  .ctrl-btn:active{ transform: scale(0.96); }
+  .ctrl-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .ctrl-btn.is-playing{ color:#05060a; background:var(--accent); border-color:var(--accent); }
+  .ctrl-btn.is-playing:hover{ box-shadow:0 0 24px var(--accent-glow); }
+  .ctrl-btn[disabled]{ opacity:.45; cursor:default; pointer-events:none; }
+
+  /* ---------- loading screen ---------- */
+  .loading-screen{
+    position:fixed; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    background:#05060a; z-index:20;
+    transition: opacity .6s ease, visibility .6s ease;
+  }
+  .loading-screen.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+  .loading-text{ font-size:12px; letter-spacing:.3em; color:var(--text-muted); text-transform:uppercase; }
+  .dots span{ opacity:0; animation: dotFade 1.4s infinite; }
+  .dots span:nth-child(2){ animation-delay:.2s; }
+  .dots span:nth-child(3){ animation-delay:.4s; }
+  @keyframes dotFade{ 0%,80%,100%{ opacity:0; } 40%{ opacity:1; } }
+
+  /* ---------- toast ---------- */
+  .toast{
+    position:fixed; top: calc(28px + env(safe-area-inset-top)); left:50%;
+    transform: translateX(-50%) translateY(-12px);
+    background:var(--scrim); border:1px solid var(--border);
+    backdrop-filter: blur(16px);
+    color:var(--text); font-size:11px; letter-spacing:.08em;
+    padding:10px 16px; border-radius:8px;
+    opacity:0; pointer-events:none;
+    transition: opacity .4s ease, transform .4s ease;
+    z-index:30; text-transform:uppercase; text-align:center;
+    max-width:80vw;
+  }
+  .toast.visible{ opacity:1; transform: translateX(-50%) translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition-duration:.01ms !important; animation-duration:.01ms !important; }
+  }
+
+  @media (max-width:480px){
+    .controls{ gap:6px; }
+    .ctrl-btn{ padding:10px 14px; font-size:11px; }
+    .hud-caption{ max-width:75vw; }
+  }
+</style>
+</head>
+<body>
+
+  <div id="bg-a" class="bg-layer active"></div>
+  <div id="bg-b" class="bg-layer"></div>
+
+  <div class="bracket bracket-tl"></div>
+  <div class="bracket bracket-tr"></div>
+  <div class="bracket bracket-bl"></div>
+  <div class="bracket bracket-br"></div>
+
+  <div id="hud-caption" class="hud-caption">
+    <div class="hud-meta" id="hud-date"></div>
+    <div class="hud-title" id="hud-title"></div>
+  </div>
+
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-text">ACQUIRING SIGNAL<span class="dots"><span>.</span><span>.</span><span>.</span></span></div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <div id="controls" class="controls" role="toolbar" aria-label="Wallpaper controls">
+    <button id="next-btn" class="ctrl-btn" type="button" aria-label="Next image">
+      <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,5 15,12 5,19"/><rect x="17" y="5" width="2.4" height="14" rx="1"/></svg>
+      <span>NEXT</span>
+    </button>
+    <button id="play-btn" class="ctrl-btn" type="button" aria-pressed="false" aria-label="Play slideshow">
+      <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="8,5 19,12 8,19"/></svg>
+      <span id="play-label">PLAY</span>
+    </button>
+  </div>
+
+<script>
+(() => {
+  'use strict';
+
+  // ---- Config ----------------------------------------------------------
+  // DEMO_KEY works out of the box but is rate-limited (~30 req/hr, 50/day).
+  // Get a free personal key at https://api.nasa.gov and swap it in below
+  // for heavier use.
+  const NASA_API_KEY = 'DEMO_KEY';
+  const APOD_ENDPOINT = 'https://api.nasa.gov/planetary/apod';
+  const AUTO_ADVANCE_MS = 60 * 60 * 1000; // 1 hour
+  const IDLE_DELAY_MS = 2600;
+  const MAX_FETCH_ATTEMPTS = 6; // APOD occasionally returns videos; skip and retry
+
+  // ---- Elements ----------------------------------------------------------
+  const layers = [document.getElementById('bg-a'), document.getElementById('bg-b')];
+  let activeIndex = 0;
+  const loadingScreen = document.getElementById('loading-screen');
+  const hudDate = document.getElementById('hud-date');
+  const hudTitle = document.getElementById('hud-title');
+  const toastEl = document.getElementById('toast');
+  const nextBtn = document.getElementById('next-btn');
+  const playBtn = document.getElementById('play-btn');
+  const playIcon = document.getElementById('play-icon');
+  const playLabel = document.getElementById('play-label');
+
+  // ---- State ----------------------------------------------------------
+  let isFetching = false;
+  let isPlaying = false;
+  let playTimer = null;
+  let toastTimer = null;
+
+  // Inner shapes only — #play-icon is already an <svg> element in the DOM
+  const SHAPE_PLAY = '<polygon points="8,5 19,12 8,19"/>';
+  const SHAPE_PAUSE = '<rect x="6" y="5" width="4.2" height="14" rx="1"/><rect x="13.8" y="5" width="4.2" height="14" rx="1"/>';
+
+  // ---- Toast ----------------------------------------------------------
+  function showToast(message, duration = 3200) {
+    clearTimeout(toastTimer);
+    toastEl.textContent = message;
+    toastEl.classList.add('visible');
+    toastTimer = setTimeout(() => toastEl.classList.remove('visible'), duration);
+  }
+
+  // ---- Fetch a random still image from NASA's Astronomy Picture of the Day API ----
+  async function fetchRandomApod() {
+    for (let attempt = 0; attempt < MAX_FETCH_ATTEMPTS; attempt++) {
+      const res = await fetch(`${APOD_ENDPOINT}?api_key=${encodeURIComponent(NASA_API_KEY)}&count=1`);
+      if (!res.ok) {
+        if (res.status === 429) throw new Error('NASA API rate limit reached — try again shortly');
+        throw new Error(`NASA API responded with ${res.status}`);
+      }
+      const [entry] = await res.json();
+      if (entry && entry.media_type === 'image' && (entry.hdurl || entry.url)) {
+        return entry;
+      }
+      // media_type was 'video' (APOD does this sometimes) — loop and draw again
+    }
+    throw new Error('Could not find an image after several tries');
+  }
+
+  // ---- Preload then crossfade a new background in ----
+  function preloadImage(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(url);
+      img.onerror = () => reject(new Error('Image failed to load'));
+      img.src = url;
+    });
+  }
+
+  function paintLayer(url) {
+    const next = layers[1 - activeIndex];
+    const current = layers[activeIndex];
+    next.style.backgroundImage = `url("${url}")`;
+    next.classList.add('active');
+    current.classList.remove('active');
+    activeIndex = 1 - activeIndex;
+  }
+
+  function updateCaption(entry) {
+    hudDate.textContent = entry.date ? `APOD · ${entry.date}` : 'APOD';
+    hudTitle.textContent = entry.title || '';
+  }
+
+  // ---- Advance to a new random wallpaper ----
+  async function showNextImage() {
+    if (isFetching) return;
+    isFetching = true;
+    nextBtn.setAttribute('disabled', 'true');
+    try {
+      const entry = await fetchRandomApod();
+      const url = entry.hdurl || entry.url;
+      await preloadImage(url);
+      paintLayer(url);
+      updateCaption(entry);
+    } catch (err) {
+      console.error(err);
+      showToast(err.message || 'Could not load a new image');
+    } finally {
+      loadingScreen.classList.add('hidden');
+      isFetching = false;
+      nextBtn.removeAttribute('disabled');
+    }
+  }
+
+  // ---- Play / pause (hourly auto-advance) ----
+  function setPlaying(playing) {
+    isPlaying = playing;
+    playBtn.classList.toggle('is-playing', playing);
+    playBtn.setAttribute('aria-pressed', String(playing));
+    playBtn.setAttribute('aria-label', playing ? 'Pause slideshow' : 'Play slideshow');
+    playIcon.innerHTML = playing ? SHAPE_PAUSE : SHAPE_PLAY;
+    playLabel.textContent = playing ? 'PAUSE' : 'PLAY';
+    clearInterval(playTimer);
+    playTimer = playing ? setInterval(showNextImage, AUTO_ADVANCE_MS) : null;
+  }
+
+  nextBtn.addEventListener('click', showNextImage);
+  playBtn.addEventListener('click', () => setPlaying(!isPlaying));
+
+  // ---- Idle detection: reveal controls on movement, fade after stillness ----
+  let idleTimer = null;
+  function revealControls() {
+    document.body.classList.add('controls-visible');
+    document.body.classList.remove('idle');
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => {
+      document.body.classList.remove('controls-visible');
+      document.body.classList.add('idle');
+    }, IDLE_DELAY_MS);
+  }
+  ['mousemove', 'mousedown', 'touchstart', 'wheel'].forEach(evt =>
+    window.addEventListener(evt, revealControls, { passive: true })
+  );
+
+  // ---- Keyboard shortcuts: space = play/pause, → or N = next ----
+  window.addEventListener('keydown', (e) => {
+    revealControls();
+    if (e.code === 'Space') { e.preventDefault(); setPlaying(!isPlaying); }
+    else if (e.code === 'ArrowRight' || e.key.toLowerCase() === 'n') showNextImage();
+  });
+
+  // ---- Double-click / double-tap toggles native fullscreen ----
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen?.().catch(() => {});
+    } else {
+      document.exitFullscreen?.();
+    }
+  }
+  window.addEventListener('dblclick', toggleFullscreen);
+  let lastTap = 0;
+  window.addEventListener('touchend', () => {
+    const now = Date.now();
+    if (now - lastTap < 300) toggleFullscreen();
+    lastTap = now;
+  });
+
+  // ---- Boot ----
+  revealControls();
+  showNextImage();
+})();
+</script>
+</body>
+</html>
