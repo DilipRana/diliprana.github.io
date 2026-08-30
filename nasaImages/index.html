@@ -35,7 +35,8 @@
   /* ---------- fullscreen crossfading wallpaper layers ---------- */
   .bg-layer{
     position:fixed; inset:0;
-    background-size:cover;
+    background-color:#05060a;
+    background-size:contain;
     background-position:center;
     background-repeat:no-repeat;
     opacity:0;
@@ -72,6 +73,7 @@
     text-shadow: 0 1px 14px rgba(0,0,0,0.85);
   }
   body.controls-visible .hud-caption{ opacity:1; transform:translateY(0); }
+  .hud-caption.pinned{ opacity:1; transform:translateY(0); }
   .hud-meta{ font-size:11px; letter-spacing:.16em; color:var(--accent); text-transform:uppercase; margin-bottom:6px; }
   .hud-title{ font-size:13px; letter-spacing:.02em; color:var(--text); line-height:1.5; font-weight:500; }
 
@@ -106,8 +108,8 @@
   .ctrl-btn:hover, .ctrl-btn:focus-visible{ background: rgba(255,255,255,0.08); border-color: var(--border); }
   .ctrl-btn:active{ transform: scale(0.96); }
   .ctrl-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
-  .ctrl-btn.is-playing{ color:#05060a; background:var(--accent); border-color:var(--accent); }
-  .ctrl-btn.is-playing:hover{ box-shadow:0 0 24px var(--accent-glow); }
+  .ctrl-btn.is-on{ color:#05060a; background:var(--accent); border-color:var(--accent); }
+  .ctrl-btn.is-on:hover{ box-shadow:0 0 24px var(--accent-glow); }
   .ctrl-btn[disabled]{ opacity:.45; cursor:default; pointer-events:none; }
 
   /* ---------- loading screen ---------- */
@@ -180,6 +182,10 @@
       <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="8,5 19,12 8,19"/></svg>
       <span id="play-label">PLAY</span>
     </button>
+    <button id="info-btn" class="ctrl-btn" type="button" aria-pressed="false" aria-label="Keep description visible">
+      <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="11.1" y="10.3" width="1.8" height="6" rx=".5"/><rect x="11.1" y="6.9" width="1.8" height="1.8" rx=".5"/></svg>
+      <span>INFO</span>
+    </button>
   </div>
 
 <script>
@@ -207,10 +213,13 @@
   const playBtn = document.getElementById('play-btn');
   const playIcon = document.getElementById('play-icon');
   const playLabel = document.getElementById('play-label');
+  const infoBtn = document.getElementById('info-btn');
+  const hudCaption = document.getElementById('hud-caption');
 
   // ---- State ----------------------------------------------------------
   let isFetching = false;
   let isPlaying = false;
+  let isInfoPinned = false;
   let playTimer = null;
   let toastTimer = null;
 
@@ -291,7 +300,7 @@
   // ---- Play / pause (hourly auto-advance) ----
   function setPlaying(playing) {
     isPlaying = playing;
-    playBtn.classList.toggle('is-playing', playing);
+    playBtn.classList.toggle('is-on', playing);
     playBtn.setAttribute('aria-pressed', String(playing));
     playBtn.setAttribute('aria-label', playing ? 'Pause slideshow' : 'Play slideshow');
     playIcon.innerHTML = playing ? SHAPE_PAUSE : SHAPE_PLAY;
@@ -300,8 +309,18 @@
     playTimer = playing ? setInterval(showNextImage, AUTO_ADVANCE_MS) : null;
   }
 
+  // ---- Keep description visible (instead of only showing it on movement) ----
+  function setInfoPinned(pinned) {
+    isInfoPinned = pinned;
+    infoBtn.classList.toggle('is-on', pinned);
+    infoBtn.setAttribute('aria-pressed', String(pinned));
+    infoBtn.setAttribute('aria-label', pinned ? 'Only show description on hover' : 'Keep description visible');
+    hudCaption.classList.toggle('pinned', pinned);
+  }
+
   nextBtn.addEventListener('click', showNextImage);
   playBtn.addEventListener('click', () => setPlaying(!isPlaying));
+  infoBtn.addEventListener('click', () => setInfoPinned(!isInfoPinned));
 
   // ---- Idle detection: reveal controls on movement, fade after stillness ----
   let idleTimer = null;
@@ -323,6 +342,7 @@
     revealControls();
     if (e.code === 'Space') { e.preventDefault(); setPlaying(!isPlaying); }
     else if (e.code === 'ArrowRight' || e.key.toLowerCase() === 'n') showNextImage();
+    else if (e.key.toLowerCase() === 'i') setInfoPinned(!isInfoPinned);
   });
 
   // ---- Double-click / double-tap toggles native fullscreen ----
