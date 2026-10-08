@@ -112,6 +112,28 @@
   .ctrl-btn.is-on:hover{ box-shadow:0 0 24px var(--accent-glow); }
   .ctrl-btn[disabled]{ opacity:.45; cursor:default; pointer-events:none; }
 
+  /* ---------- autoplay interval field ---------- */
+  .timer-field{
+    display:flex; align-items:center; gap:8px;
+    padding:0 14px; border-radius:999px;
+    border:1px solid var(--border);
+    color:var(--text-muted);
+    font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    cursor:text;
+  }
+  .timer-field input{
+    width:54px; padding:6px 4px;
+    background:transparent; color:var(--text);
+    border:0; border-bottom:1px solid var(--border);
+    font-family:var(--font-mono); font-size:12px; font-weight:500;
+    text-align:center;
+    -moz-appearance:textfield; appearance:textfield;
+    -webkit-user-select:text; user-select:text;
+  }
+  .timer-field input::-webkit-outer-spin-button,
+  .timer-field input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+  .timer-field input:focus{ outline:none; border-bottom-color:var(--accent); color:var(--accent); }
+
   /* ---------- loading screen ---------- */
   .loading-screen{
     position:fixed; inset:0;
@@ -176,12 +198,17 @@
   <div id="controls" class="controls" role="toolbar" aria-label="Wallpaper controls">
     <button id="next-btn" class="ctrl-btn" type="button" aria-label="Next image">
       <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,5 15,12 5,19"/><rect x="17" y="5" width="2.4" height="14" rx="1"/></svg>
-      <span>NEXT</span>
+      <span id="next-label">NEXT</span>
     </button>
     <button id="play-btn" class="ctrl-btn" type="button" aria-pressed="false" aria-label="Play slideshow">
       <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="8,5 19,12 8,19"/></svg>
       <span id="play-label">PLAY</span>
     </button>
+    <label class="timer-field" for="interval-input" title="Minutes between automatic image changes">
+      <span>EVERY</span>
+      <input id="interval-input" type="number" inputmode="numeric" min="1" max="1440" step="1" value="60" aria-label="Autoplay interval in minutes">
+      <span>MIN</span>
+    </label>
     <button id="info-btn" class="ctrl-btn" type="button" aria-pressed="false" aria-label="Keep description visible">
       <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="11.1" y="10.3" width="1.8" height="6" rx=".5"/><rect x="11.1" y="6.9" width="1.8" height="1.8" rx=".5"/></svg>
       <span>INFO</span>
@@ -198,9 +225,23 @@
   // for heavier use.
   const NASA_API_KEY = 'DEMO_KEY';
   const APOD_ENDPOINT = 'https://api.nasa.gov/planetary/apod';
-  const AUTO_ADVANCE_MS = 60 * 60 * 1000; // 1 hour
+  const DEFAULT_INTERVAL_MIN = 60;  // autoplay default; editable from the control bar
+  const MIN_INTERVAL_MIN = 1;
+  const MAX_INTERVAL_MIN = 1440;    // 24 hours
   const IDLE_DELAY_MS = 2600;
-  const MAX_FETCH_ATTEMPTS = 6; // APOD occasionally returns videos; skip and retry
+  const BATCH_SIZE = 12;            // random entries requested per API call
+  const FETCH_TIMEOUT_MS = 12000;   // give up on a stalled NASA data request
+  const IMAGE_TIMEOUT_MS = 25000;   // give up on a stalled image download
+  const WATCHDOG_MS = 70000;        // absolute cap on one "load next image" attempt
+  const POOL_LOW_WATER = 3;        // top up the pool in the background below this
+  const SEEN_LIMIT = 400;           // remember this many recent picks to avoid repeats
+  const HISTORY_KEY = 'apodHistory';
+  const HISTORY_LIMIT = 100;        // saved images to fall back on when offline / rate-limited
+  // NASA Image and Video Library: no API key needed, used when APOD is unavailable
+  const LIB_ENDPOINT = 'https://images-api.nasa.gov/search';
+  const LIB_QUERIES = ['nebula', 'galaxy', 'earth from space', 'aurora', 'supernova', 'hubble', 'webb telescope',
+    'mars surface', 'jupiter', 'saturn', 'moon', 'milky way', 'star cluster', 'comet', 'solar flare',
+    'space station', 'eclipse', 'andromeda', 'orion', 'black hole', 'pillars of creation', 'cosmos'];
 
   // ---- Elements ----------------------------------------------------------
   const layers = [document.getElementById('bg-a'), document.getElementById('bg-b')];
@@ -210,11 +251,13 @@
   const hudTitle = document.getElementById('hud-title');
   const toastEl = document.getElementById('toast');
   const nextBtn = document.getElementById('next-btn');
+  const nextLabel = document.getElementById('next-label');
   const playBtn = document.getElementById('play-btn');
   const playIcon = document.getElementById('play-icon');
   const playLabel = document.getElementById('play-label');
   const infoBtn = document.getElementById('info-btn');
   const hudCaption = document.getElementById('hud-caption');
+  const intervalInput = document.getElementById('interval-input');
 
   // ---- State ----------------------------------------------------------
   let isFetching = false;
@@ -222,6 +265,22 @@
   let isInfoPinned = false;
   let playTimer = null;
   let toastTimer = null;
+  let intervalMin = DEFAULT_INTERVAL_MIN;
+  let isTopUp = false;
+  const pool = [];            // prefetched random entries waiting to be shown
+  const seen = new Set();     // ids already shown this visit
+
+  // Persist the interval between visits (storage can be blocked, so guard it)
+  function loadInterval() {
+    try {
+      const saved = parseInt(localStorage.getItem('apodIntervalMin'), 10);
+      if (saved >= MIN_INTERVAL_MIN && saved <= MAX_INTERVAL_MIN) return saved;
+    } catch (_) {}
+    return DEFAULT_INTERVAL_MIN;
+  }
+  function saveInterval(v) {
+    try { localStorage.setItem('apodIntervalMin', String(v)); } catch (_) {}
+  }
 
   // Inner shapes only — #play-icon is already an <svg> element in the DOM
   const SHAPE_PLAY = '<polygon points="8,5 19,12 8,19"/>';
@@ -235,29 +294,168 @@
     toastTimer = setTimeout(() => toastEl.classList.remove('visible'), duration);
   }
 
-  // ---- Fetch a random still image from NASA's Astronomy Picture of the Day API ----
-  async function fetchRandomApod() {
-    for (let attempt = 0; attempt < MAX_FETCH_ATTEMPTS; attempt++) {
-      const res = await fetch(`${APOD_ENDPOINT}?api_key=${encodeURIComponent(NASA_API_KEY)}&count=1`);
-      if (!res.ok) {
-        if (res.status === 429) throw new Error('NASA API rate limit reached — try again shortly');
-        throw new Error(`NASA API responded with ${res.status}`);
-      }
-      const [entry] = await res.json();
-      if (entry && entry.media_type === 'image' && (entry.hdurl || entry.url)) {
-        return entry;
-      }
-      // media_type was 'video' (APOD does this sometimes) — loop and draw again
+  // ---- Image sources -----------------------------------------------------
+  // Every source produces entries shaped { id, label, title, urls[] } where
+  // urls are tried in order (best quality first).
+  //   1. APOD     – api.nasa.gov, random batch (needs key; DEMO_KEY has a hard daily cap)
+  //   2. Library  – images-api.nasa.gov, no key and no meaningful rate limit
+  //   3. History  – images shown before, saved in localStorage (repeats are fine)
+  // If one source fails, the next takes over, so Next never "does nothing".
+  let apodBlockedUntil = 0;   // after an APOD failure, skip it for a while
+  let currentId = null;       // never pick the image already on screen
+  let currentUrl = null;
+  let history = loadHistory();
+
+  function loadHistory() {
+    try {
+      const h = JSON.parse(localStorage.getItem(HISTORY_KEY));
+      return Array.isArray(h) ? h : [];
+    } catch (_) { return []; }
+  }
+  function remember(entry) {
+    history = history.filter(h => h.id !== entry.id);
+    history.push(entry);
+    if (history.length > HISTORY_LIMIT) history.shift();
+    try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); } catch (_) {}
+  }
+
+  function addToPool(entries) {
+    const inBatch = new Set();
+    let added = 0;
+    for (const e of entries) {
+      if (!e || !e.urls.length) continue;
+      if (e.id === currentId || seen.has(e.id) || inBatch.has(e.id) || pool.some(p => p.id === e.id)) continue;
+      inBatch.add(e.id);
+      pool.push(e);
+      added++;
     }
-    throw new Error('Could not find an image after several tries');
+    return added;
+  }
+
+  async function getJson(url) {
+    // Abort stalled requests: a hung connection must never freeze the page
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
+    try {
+      // cache:'no-store' stops the browser replaying an earlier "random" response
+      const res = await fetch(url, { cache: 'no-store', signal: ctrl.signal });
+      if (!res.ok) {
+        const err = new Error(`HTTP ${res.status}`);
+        err.status = res.status;
+        throw err;
+      }
+      return await res.json();
+    } catch (err) {
+      if (err.name === 'AbortError') throw new Error('NASA took too long to respond');
+      throw err;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  // Source 1: one call returns BATCH_SIZE random pictures from 1995 → today
+  async function fillFromApod() {
+    const data = await getJson(
+      `${APOD_ENDPOINT}?api_key=${encodeURIComponent(NASA_API_KEY)}&count=${BATCH_SIZE}`
+    );
+    const entries = (Array.isArray(data) ? data : [])
+      .filter(e => e && e.media_type === 'image' && (e.hdurl || e.url))
+      .map(e => ({
+        id: 'apod-' + e.date,
+        label: 'APOD · ' + e.date,
+        title: e.title || '',
+        urls: [...new Set([e.hdurl, e.url].filter(Boolean))],
+      }));
+    return addToPool(entries);
+  }
+
+  // Source 2: NASA Image and Video Library – random search term + random page
+  async function fillFromLibrary() {
+    const q = LIB_QUERIES[Math.floor(Math.random() * LIB_QUERIES.length)];
+    const build = page => `${LIB_ENDPOINT}?q=${encodeURIComponent(q)}&media_type=image&page_size=30&page=${page}`;
+    let data;
+    try {
+      data = await getJson(build(1 + Math.floor(Math.random() * 12)));
+    } catch (err) {
+      data = await getJson(build(1)); // that page may not exist for a narrow term
+    }
+    const items = (data && data.collection && data.collection.items) || [];
+    const entries = items.map(it => {
+      const d = (it.data && it.data[0]) || {};
+      const thumb = it.links && it.links[0] && it.links[0].href;
+      if (!thumb || d.media_type !== 'image' || !d.nasa_id) return null;
+      const base = thumb.replace(/ /g, '%20');
+      return {
+        id: 'lib-' + d.nasa_id,
+        label: 'NASA IMAGE LIBRARY' + (d.date_created ? ' · ' + d.date_created.slice(0, 4) : ''),
+        title: d.title || '',
+        // larger renditions usually exist; fall back to the thumbnail if not
+        urls: [base.replace('~thumb.', '~large.'), base.replace('~thumb.', '~medium.'), base],
+      };
+    }).filter(Boolean);
+    return addToPool(entries);
+  }
+
+  async function refillPool({ loud = false } = {}) {
+    if (Date.now() >= apodBlockedUntil) {
+      try {
+        await fillFromApod();
+      } catch (err) {
+        console.warn('APOD unavailable:', err.message);
+        // 429 = out of quota (wait longer); anything else = try again soon
+        apodBlockedUntil = Date.now() + (err.status === 429 ? 30 : 2) * 60 * 1000;
+        if (loud) showToast(err.status === 429 ? 'APOD limit reached — using NASA Image Library' : 'APOD unavailable — using NASA Image Library');
+      }
+    }
+    if (pool.length === 0) {
+      try { await fillFromLibrary(); }
+      catch (err) { console.warn('NASA Image Library unavailable:', err.message); }
+    }
+  }
+
+  function takeFromPool() {
+    const i = Math.floor(Math.random() * pool.length);
+    const [entry] = pool.splice(i, 1);
+    seen.add(entry.id);
+    if (seen.size > SEEN_LIMIT) seen.delete(seen.values().next().value); // drop oldest
+    return entry;
+  }
+
+  // Quietly refill in the background so the next click is instant
+  async function topUpPool() {
+    if (isTopUp || pool.length >= POOL_LOW_WATER) return;
+    isTopUp = true;
+    try { await refillPool(); } catch (_) {}
+    isTopUp = false;
+  }
+
+  async function fetchNext() {
+    if (pool.length === 0) await refillPool({ loud: true });
+    if (pool.length > 0) {
+      const entry = takeFromPool();
+      topUpPool();
+      return entry;
+    }
+    // Both live sources failed: reuse something shown before (never the current one)
+    const older = history.filter(h => h.id !== currentId);
+    if (older.length > 0) {
+      showToast('Offline or rate-limited — showing a saved image');
+      return older[Math.floor(Math.random() * older.length)];
+    }
+    throw new Error('Could not reach NASA — check your connection and try again');
   }
 
   // ---- Preload then crossfade a new background in ----
   function preloadImage(url) {
     return new Promise((resolve, reject) => {
       const img = new Image();
-      img.onload = () => resolve(url);
-      img.onerror = () => reject(new Error('Image failed to load'));
+      const timer = setTimeout(() => {
+        img.onload = img.onerror = null;
+        img.src = ''; // cancel the stalled download
+        reject(new Error('Image took too long to load'));
+      }, IMAGE_TIMEOUT_MS);
+      img.onload = () => { clearTimeout(timer); resolve(url); };
+      img.onerror = () => { clearTimeout(timer); reject(new Error('Image failed to load')); };
       img.src = url;
     });
   }
@@ -265,35 +463,71 @@
   function paintLayer(url) {
     const next = layers[1 - activeIndex];
     const current = layers[activeIndex];
-    next.style.backgroundImage = `url("${url}")`;
+    next.style.backgroundImage = `url("${url.replace(/["\\\n]/g, encodeURIComponent)}")`;
     next.classList.add('active');
     current.classList.remove('active');
     activeIndex = 1 - activeIndex;
   }
 
   function updateCaption(entry) {
-    hudDate.textContent = entry.date ? `APOD · ${entry.date}` : 'APOD';
+    hudDate.textContent = entry.label || '';
     hudTitle.textContent = entry.title || '';
   }
 
   // ---- Advance to a new random wallpaper ----
+  let loadToken = 0; // lets a timed-out attempt be ignored if it finishes late
+
+  async function loadNextImage(token) {
+    let lastErr = null;
+    // If a picked image fails to load, try its other sizes, then another image
+    for (let i = 0; i < 5; i++) {
+      const entry = await fetchNext();
+      for (const url of entry.urls) {
+        if (url === currentUrl) continue; // never "change" to the image already showing
+        try {
+          await preloadImage(url);
+        } catch (err) {
+          console.warn('Skipping image:', url, err.message);
+          lastErr = err;
+          continue;
+        }
+        if (token !== loadToken) return;   // a newer attempt took over; drop this one
+        paintLayer(url);
+        updateCaption(entry);
+        currentId = entry.id;
+        currentUrl = url;
+        remember(entry);
+        return;
+      }
+    }
+    throw lastErr || new Error('Could not load a new image');
+  }
+
   async function showNextImage() {
     if (isFetching) return;
     isFetching = true;
+    const token = ++loadToken;
     nextBtn.setAttribute('disabled', 'true');
+    nextLabel.textContent = 'LOADING';
+    let watchdog;
     try {
-      const entry = await fetchRandomApod();
-      const url = entry.hdurl || entry.url;
-      await preloadImage(url);
-      paintLayer(url);
-      updateCaption(entry);
+      // Backstop: whatever goes wrong, give up after WATCHDOG_MS so Next never stays dead
+      await Promise.race([
+        loadNextImage(token),
+        new Promise((_, reject) => {
+          watchdog = setTimeout(() => reject(new Error('Timed out loading an image — try Next again')), WATCHDOG_MS);
+        }),
+      ]);
     } catch (err) {
+      loadToken++; // invalidate the abandoned attempt
       console.error(err);
       showToast(err.message || 'Could not load a new image');
     } finally {
+      clearTimeout(watchdog);
       loadingScreen.classList.add('hidden');
       isFetching = false;
       nextBtn.removeAttribute('disabled');
+      nextLabel.textContent = 'NEXT';
     }
   }
 
@@ -305,9 +539,37 @@
     playBtn.setAttribute('aria-label', playing ? 'Pause slideshow' : 'Play slideshow');
     playIcon.innerHTML = playing ? SHAPE_PAUSE : SHAPE_PLAY;
     playLabel.textContent = playing ? 'PAUSE' : 'PLAY';
-    clearInterval(playTimer);
-    playTimer = playing ? setInterval(showNextImage, AUTO_ADVANCE_MS) : null;
+    startTimer();
   }
+
+  // (Re)start the autoplay timer using the current interval; no-op when paused
+  function startTimer() {
+    clearInterval(playTimer);
+    playTimer = isPlaying ? setInterval(showNextImage, intervalMin * 60 * 1000) : null;
+  }
+
+  function applyInterval(raw, { commit = false } = {}) {
+    const n = Math.round(Number(raw));
+    if (!Number.isFinite(n) || n < MIN_INTERVAL_MIN) {
+      if (commit) intervalInput.value = intervalMin; // reject junk, restore last good value
+      return;
+    }
+    intervalMin = Math.min(n, MAX_INTERVAL_MIN);
+    saveInterval(intervalMin);
+    startTimer(); // changing it while playing restarts the countdown
+    if (commit) {
+      intervalInput.value = intervalMin;
+      if (isPlaying) showToast(`Autoplay every ${intervalMin} min`, 2000);
+    }
+  }
+
+  intervalInput.addEventListener('input', () => applyInterval(intervalInput.value));
+  intervalInput.addEventListener('change', () => applyInterval(intervalInput.value, { commit: true }));
+  intervalInput.addEventListener('keydown', (e) => {
+    e.stopPropagation(); // typing digits must not trigger N / I / Space shortcuts
+    revealControls();    // ...but keep the bar visible while editing
+    if (e.key === 'Enter') intervalInput.blur();
+  });
 
   // ---- Keep description visible (instead of only showing it on movement) ----
   function setInfoPinned(pinned) {
@@ -362,6 +624,8 @@
   });
 
   // ---- Boot ----
+  intervalMin = loadInterval();
+  intervalInput.value = intervalMin;
   revealControls();
   showNextImage();
 })();
