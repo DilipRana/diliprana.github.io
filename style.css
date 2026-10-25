@@ -133,6 +133,43 @@ img{
     border-radius: 3px;
 }
 
+#stage-prev-btn{
+    position: absolute;
+    top: calc(50% + 25px - 125px);
+    left: 0;
+    width: 60px;
+    height: 250px;
+    z-index: 1;
+}
+
+#stage-next-btn{
+    position: absolute;
+    top: calc(50% + 25px - 125px);
+    right: 0;
+    width: 60px;
+    height: 250px;
+    z-index: 1;
+}
+
+.stage-btn-enabled{
+    cursor: pointer;
+    font-size: 50px;
+    transition: 0.5s;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(72, 72, 72, 1);
+    opacity: 0.3;
+}
+
+.stage-btn-enabled:hover{
+    opacity: 0.8;
+}
+
+.stage-btn-disabled{
+    display: none;
+}
+
 #stage-image{
     object-fit: contain;
     width: 100%;
@@ -140,6 +177,7 @@ img{
     border: 1px solid white;
     border-radius: 3px;
 }
+
 
 /*
     Header styling starts here

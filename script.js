@@ -48,12 +48,54 @@ function openToast(toastString){
 
 }
 
+let stageElem;
+
+function checkNextPrevButtons(){
+    // If first image, disable prev button
+    if (stageElem.closest('.autofit-img').nextElementSibling){
+        document.getElementById('stage-next-btn').className="stage-btn-enabled";
+    }
+    else{
+        document.getElementById('stage-next-btn').className="stage-btn-disabled";
+    }
+
+    // If last image, disable next button
+    if (stageElem.closest('.autofit-img').previousElementSibling){
+        document.getElementById('stage-prev-btn').className="stage-btn-enabled";
+    }
+    else{
+        document.getElementById('stage-prev-btn').className="stage-btn-disabled";
+    }
+}
+
 function openImgStage(element){
     // Do it twice to avoid glitch sometimes
     document.getElementById('stage-image').src = element.src;
     document.getElementById('stage-image').src = element.src;
     document.getElementById('image-stage').className="stage-open";
     document.getElementById('html-body').className="stop-scroll";
+    stageElem = element;
+    checkNextPrevButtons();
+}
+
+function openPrevStage() {
+    let prevContainer = stageElem.closest('.autofit-img').previousElementSibling;
+    
+    if (prevContainer) {
+        const prevImgElement = prevContainer.querySelector('img');
+        openImgStage(prevImgElement);
+    }
+    checkNextPrevButtons();
+}
+
+function openNextStage() {
+    let nextContainer = stageElem.closest('.autofit-img').nextElementSibling;
+    
+    if (nextContainer) {
+        const nextImgElement = nextContainer.querySelector('img');
+        openImgStage(nextImgElement);
+    }    
+    checkNextPrevButtons();
 }
 
 function closeImgStage(){

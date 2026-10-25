@@ -140,7 +140,7 @@
 
                     <details class="body-info-texts">
                         <summary>
-                            I am currently a graduate research assistant working with Prof. Zheyu Zhang. Currently, I am honored to be involved in a <b>NASA-funded project</b> focused on evaluating the suitability of GaN HEMTs for future lunar missions. My work involves conducting stress tests that replicate lunar environmental conditions and assessing device performance to support the design of next-generation power converters. My research centers on the reliability assessment of GaN HEMTs, with a strong focus on understanding their behavior under extreme operating conditions.
+                            I am currently a graduate research assistant working with Prof. Zheyu Zhang. My work involves the development of cryogenic power electronics using GaN HEMTs and their reliability characterization. This involves tasks such as developing converters and reliability platforms, setting up automation and interpreting test results.
                         </summary>
                         <div class="body-info-images">
                             <div class="autofit-img">
@@ -181,7 +181,7 @@
 
                     <details class="body-info-texts">
                         <summary>
-                            Following a three-month internship, I joined Yatri Motorcycles—Nepal’s first and only electric two-wheeler startup—as a full-time Embedded Hardware Engineer. I was involved in the design, testing, and implementation of critical hardware components for vehicle embedded systems, including the Vehicle Control Unit (VCU), power relay boards, and more. This role required close collaboration with multidisciplinary teams for system-level testing and design validation. Seeing these developments successfully integrated into the final product was a highly rewarding experience.
+                            Following a three-month internship, I joined Yatri Motorcycles as a full-time Embedded Hardware Engineer. I was involved in the design, testing, and implementation of critical hardware components for vehicle embedded systems, including the Vehicle Control Unit (VCU), power relay boards, and more. 
                         </summary>
                         <div class="body-info-images">  
                             <div class="autofit-img">
@@ -208,6 +208,43 @@
                     My publication is currently under review. I will update this section once it is published. Thank you!
                 </div> -->
 
+                <div class="body-info-item timeline-item dashed-timeline">
+                    <div class="body-info-date">
+                        March 2026, PEASA Workshop
+                    </div>
+
+                    <div class="publication-item-container">
+                        <div class="body-info-title publication-title">
+                            Blocking-State Reliability Characterization of GaN HEMTs for Lunar Power Applications
+                        </div>
+                        <div class="body-info-date publication-authors">
+                           Dilip Rana, Purushottam Khadka, Tian Qiu, Zheyu Zhang
+                        </div>
+                        <div class="body-info-details">
+                            <div class="body-info-images">
+                                <div class="autofit-img">
+                                    <img onclick="openImgStage(this)"  src="Images/Publications/BlockingState/poster.jpg" alt="Digital version of the poster presented during the workshop">
+                                </div>
+                                <div class="autofit-img">
+                                    <img onclick="openImgStage(this)"  src="Images/Publications/BlockingState/platformHardware.png" alt="Hardware implementaion of blocking state realiability platform">
+                                </div>
+                                <div class="autofit-img">
+                                    <img onclick="openImgStage(this)"  src="Images/Publications/BlockingState/standing.jpg" alt="Dilip standing in front of his poster during poster session">
+                                </div>
+                            </div>
+                            <details class="body-info-texts">
+                                <summary>
+                                    <b>Abstract:</b>
+                                    Gallium nitride (GaN) high-electron-mobility transistors (HEMTs) have shown strong potential for lunar power applications due to their superior performance demonstrated through various characterization studies. However, their blocking-state reliability under lunar operating conditions remains uncertain, as existing reliability models predict severe degradation at cryogenic temperatures. In this paper, we present the blocking-state reliability characterization of commercial GaN HEMTs under lunar-relevant operating conditions. The reliability test platform and methodology are first presented, including two distinct temperature profiles to evaluate device reliability during lunar night operation and the lunar day–night cycle. The results from both tests demonstrate that the blocking-state lifetime of GaN HEMTs significantly exceeds the predictions of existing reliability models, indicating that existing models are not directly applicable to such extreme temperature conditions. Under thermal cycling conditions, only one of three samples failed, providing valuable insight into the influence of blocking-state stress on overall device reliability in lunar-relevant environments.
+                                </summary>
+                                <div class="collapsed-texts">
+                                    <a href="https://ieeexplore.ieee.org/document/11709505" title="Click to open IEEE link" target="_blank">Open IEEE link↗</a>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="body-info-item timeline-item dashed-timeline">
                     <div class="body-info-date">
                         March 2026, APEC Conference
@@ -515,7 +552,9 @@
     <div id="image-stage" class="stage-close">
         <div id="stage-blank-space" onclick="closeImgStage()"></div>
         <div id="stage-container">
-            <button id="stage-close-btn"  onclick="closeImgStage()" title="Click here or outside image to close">⛌</button>
+            <button id="stage-close-btn" onclick="closeImgStage()" title="Click here or outside image to close">⛌</button>
+            <button id="stage-prev-btn"  class = "stage-btn-enabled" onclick="openPrevStage()" title="previous image"><</button>
+            <button id="stage-next-btn"  class = "stage-btn-enabled" onclick="openNextStage()" title="next image">></button>
             <img id="stage-image" src="" alt="Zoomed clicked iamge">
         </div>
     </div>
