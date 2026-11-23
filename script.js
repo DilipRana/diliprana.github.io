@@ -52,19 +52,19 @@ let stageElem;
 
 function checkNextPrevButtons(){
     // If first image, disable prev button
-    if (stageElem.closest('.autofit-img').nextElementSibling){
-        document.getElementById('stage-next-btn').className="stage-btn-enabled";
-    }
-    else{
-        document.getElementById('stage-next-btn').className="stage-btn-disabled";
-    }
-
-    // If last image, disable next button
-    if (stageElem.closest('.autofit-img').previousElementSibling){
+    if (stageElem.closest('.autofit-img') && stageElem.closest('.autofit-img').previousElementSibling){
         document.getElementById('stage-prev-btn').className="stage-btn-enabled";
     }
     else{
         document.getElementById('stage-prev-btn').className="stage-btn-disabled";
+    }
+
+    // If last image, disable next button
+    if (stageElem.closest('.autofit-img') && stageElem.closest('.autofit-img').nextElementSibling){
+        document.getElementById('stage-next-btn').className="stage-btn-enabled";
+    }
+    else{
+        document.getElementById('stage-next-btn').className="stage-btn-disabled";
     }
 }
 

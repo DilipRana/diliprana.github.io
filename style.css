@@ -74,7 +74,7 @@ img{
     top: 0;
     width: 100%;
     height: 100%;
-    padding: 10px;
+    padding: 0px 75px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -145,7 +145,7 @@ img{
 #stage-next-btn{
     position: absolute;
     top: calc(50% + 25px - 125px);
-    right: 0;
+    right: 10px;
     width: 60px;
     height: 250px;
     z-index: 1;
@@ -156,14 +156,14 @@ img{
     font-size: 50px;
     transition: 0.5s;
     color: white;
-    border: none;
+    border: 2px solid white;
     border-radius: 5px;
-    background-color: rgba(72, 72, 72, 1);
-    opacity: 0.3;
+    background: none;
+    opacity: 0.5;
 }
 
 .stage-btn-enabled:hover{
-    opacity: 0.8;
+    opacity: 1.0;
 }
 
 .stage-btn-disabled{

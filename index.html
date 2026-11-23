@@ -19,11 +19,11 @@
                 <li id="experience-nav">
                     <a href="#experience">Experience</a>
                 </li>
-                <li id="publications-nav">
-                    <a href="#publications">Publications</a>
-                </li>
                 <li id="projects-nav">
                     <a href="#projects">Projects</a>
+                </li>
+                <li id="publications-nav">
+                    <a href="#publications">Publications</a>
                 </li>
                 <li id="contact-nav">
                     <a href="#contact">Contact info</a>
@@ -120,7 +120,7 @@
                         <div class="experience-location-split">
                             <img onclick=""  src="Images/Experience/RPI/logo.png" alt="RPI Logo" class="experience-location-logo">
                             <div class="experience-location-details">
-                                <div class="body-info-date">Jan 2024 - Present (Expected Graduation: 2028)</div>
+                                <div class="body-info-date">Jan 2024 - Present (Expected Graduation: Dec 2028)</div>
                                 <div class="experience-company-name">
                                     Rensselaer Polytechnic Institute
                                     <a class="openlink-button" title="Click to open RPI website" href="https://rpi.edu" target="_blank" >
@@ -150,7 +150,7 @@
                                 <img onclick="openImgStage(this)"  src="Images/Experience/RPI/coldhead.png" alt="Cyocooler cold head at RPI">
                             </div>
                             <div class="autofit-img">
-                                <img onclick="openImgStage(this)"  src="Images/Experience/RPI/lab.png" alt="RPI ExPERT lab">
+                                <img onclick="openImgStage(this)"  src="Images/Experience/RPI/cryoLab.png" alt="Example converter assembly circuit">
                             </div>
                             <div class="autofit-img">
                                 <img onclick="openImgStage(this)"  src="Images/Experience/RPI/teamPhoto.jpg" alt="RPI ExPERT with visitors from GE">
@@ -179,22 +179,227 @@
                         </div>
                     </div>
 
-                    <details class="body-info-texts" open>
+                    <details class="body-info-texts">
                         <summary>
                             Following a three-month internship, I joined Yatri Motorcycles as a full-time Embedded Hardware Engineer. I was involved in the design, testing, and implementation of critical hardware components for vehicle embedded systems, including the Vehicle Control Unit (VCU), power relay boards, and more. 
                         </summary>
                         <div class="body-info-images">  
                             <div class="autofit-img">
-                                <img onclick="openImgStage(this)"  src="Images/Experience/Yatri/yatriBike.png" alt="Yatri motorcycle in assemply">
+                                <img onclick="openImgStage(this)"  src="Images/Experience/Yatri/pcbs.png" alt="Designed PCBs at Yatri">
+                            </div>
+                            <div class="autofit-img">
+                                <img onclick="openImgStage(this)"  src="Images/Experience/Yatri/pcbDesign.png" alt="Working image at Yatri">
                             </div>
                             <div class="autofit-img">
                                 <img onclick="openImgStage(this)"  src="Images/Experience/Yatri/pcbTest.png" alt="PCB tests at Yatri">
                             </div>
-                            <div class="autofit-img">
-                                <img onclick="openImgStage(this)"  src="Images/Experience/Yatri/pcbDesign.png" alt="PCB design at Yatri">
-                            </div>
                         </div>
                     </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="body-info-section" id="projects">
+            <div class="body-info-header-text">
+                Research and Project Works
+            </div>
+            <div class="body-infos-contents">
+                <div class="body-info-item timeline-item solid-timeline">
+                    <div class="body-info-date">
+                        June 2026 - Present | PhD Research
+                    </div>
+                    <div class="body-info-title">
+                        Cryogenic Operable Power Converter Design
+                    </div>
+                    <div class="body-info-details">
+                        <div class="body-info-images">
+                            <div class="autofit-img">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/cryogenic converter/setup.png" alt="Test setup for cryogenic converter test">
+                            </div>
+                            <div class="autofit-img">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/cryogenic converter/converter.png" alt="Image of converter installed inside the cryocooler">
+                            </div>
+                            <div class="autofit-img">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/cryogenic converter/effPlot.png" alt="Observed efficiency of the designed converter down to 50 K">
+                            </div>
+                        </div>
+                        <details class="body-info-texts">
+                            <summary>
+                                Design of GaN based power converter that can operate down to cryogenic temperatures.
+                            </summary>
+                            <div class="collapsed-texts">
+                                <ul>
+                                    <li>Designed 500W GaN based buck-boost converter to convert voltage from solar panel to fixed DC bus</li>
+                                    <li>Used radiation hardened GaN HEMTs, operated at 500kHz</li>
+                                    <li>Experimentally validated cryogenic operation and repeated cold-start operation capability with 𝜂 > 95%</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="body-info-item timeline-item solid-timeline">
+                    <div class="body-info-date">
+                        Jan 2026 - Jun 2026 | PhD Research
+                    </div>
+                    <div class="body-info-title">
+                        Reliability Assessment of GaN HEMTs down to Cryogenic Temperatures
+                    </div>
+                    <div class="body-info-details">
+                        <div class="body-info-images">
+                            <div class="autofit-img">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/cryogenic reliability/drainBias.png" alt="Platform diagram for drain bias test">
+                            </div>
+                            <div class="autofit-img">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/cryogenic reliability/gateBias.png" alt="Physical assembly of gate stress setup">
+                            </div>
+                            <div class="autofit-img">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/cryogenic reliability/thermalCycling.png" alt="Test procedure of thermal cycling test">
+                            </div>
+                        </div>
+                        <details class="body-info-texts">
+                            <summary>
+                                Reliability tests of commercial GaN HEMTs targeting different failure mechanisms.
+                            </summary>
+                            <div class="collapsed-texts">
+                                <ul>
+                                    <li>Developed reliability platforms for: thermal cycling, gate stress (static and dynamic) and drain stress </li>
+                                    <li>Full automation with MATLAB controlling cryocooler, oscilloscope, data acquisition unit, DSP controller</li>
+                                    <li>Lifetime modelling and supplementary tests to understand failure mechanisms</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="body-info-item timeline-item solid-timeline">
+                    <div class="body-info-date">
+                        June 2021 - Apr 2022
+                    </div>
+                    <div class="body-info-title">
+                        Wireless Power Transfer: Electric Scooter based Design
+                    </div>
+                    <div class="body-info-details">
+                        <div class="body-info-images">
+                            <div class="autofit-img">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/WPT/circuit.png" alt="WPT circuit">
+                            </div>
+                            <div class="autofit-img">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/WPT/fieldSim.png" alt="WPT simulation">
+                            </div>
+                            <div class="autofit-img">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/WPT/team.jpg" alt="WPT team photo">
+                            </div>
+                        </div>
+                        <details class="body-info-texts">
+                            <summary>
+                                For our year-long undergraduate capstone project, we designed and optimized a wireless power transfer system for a commercial electric scooter. We successfully demonstrated a working hardware prototype, which was well received by the department.
+                            </summary>
+                            <div class="collapsed-texts">
+                                <b>Collaborators:</b> Peter Multiverse (Ganesh Rai), Abinash Man Karmacharya and Anjana Shrestha <br/>
+                                <br/>
+                                <b>What:</b>
+                                    Simulation and hardware prototype development of inductive resontant coupling based wireless power transfersystem for electric scooter - transfering power from ground pad to coil at base of the scooter.<br/>
+                                <b>How:</b>
+                                <ul>
+                                    <li>Design and optimization of coil design at given constraints in COMSOL Multiphysics Tool</li>
+                                    <li>Design of half bridge inverter with inductive power transfer using S-S topology</li>
+                                    <li>Design of gate driver circuits using isolated-tranformer topology</li>
+                                    <li>Development of hardware prototype using matrix board and off the shelf parts</li>
+                                </ul>
+                                <b>Results:</b>
+                                <ul>
+                                    <li>Successful design and demonstration of working prototype on project defence</li>
+                                    <li>Optimized coil design within dimensional constraints and limiting maximum flux density to 80 mT</li>
+                                    <li>Working hardware prototype with power transfered upto 150W achieving maximum power transfer efficiency of 90%</li>
+                                </ul>
+                                <a href="./Files/Inductive-Resonance-Power-Transfer-Final-Year-Project-Report.pdf" target="_blank" title="Click to view project report">View project report↗</a>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                
+                <div class="body-info-item timeline-item solid-timeline">
+                    <div class="body-info-date">
+                        Dec 2019 - Jan 2020
+                    </div>
+                    <div class="body-info-title">
+                        Induction Heater Design and Case Study
+                    </div>
+                    <div class="body-info-details">
+                        <div class="body-info-images">
+                            <div class="autofit-img">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/inductionHeater.jpg" alt="Concentrating Solar Diagram">
+                            </div>
+                        </div>
+                        <details class="body-info-texts">
+                            <summary>
+                                As part of an energy hackathon organized to explore sustainable solutions, we studied the feasibility of replacing traditional LPG-based cooking in the Kathmandu Valley with an induction heater-based approach. Our analysis considered projected energy generation and demand trends over the next five years. To support the case for local adoption, we built a functional induction heater prototype demonstrating the potential for in-country production. Our team <b>won</b> the hackathon in the efficiency category.
+                            </summary>
+                            <div class="collapsed-texts">
+                                <b>Team Name:</b> NT RAYS<br>
+                                <b>Collaborators:</b> Abinash Man Karmacharya, Peter Multiverse (Ganesh Rai), Anjana Shrestha <br>
+                                <br>
+                                <b>What:</b>
+                                Case study of induction heater cooking to replace LPG cooking in Kathmandu Valley with in-country manufactoring<br/>
+                                <b>How:</b>
+                                <ul>
+                                    <li>Use of official Nepal Electricity Authority (NEA) data for demand and generation of electrical energy</li>
+                                    <li>Local manufactoring of induction heaters for cost effective heaters production </li>
+                                    <li>Comparison and feasibility of the induction heater based solution at peak loading hours</li>
+                                </ul>
+                                <b>Results:</b>
+                                <ul>
+                                    <li>With clear upward generation trend surpassing electricity consumption demand, the study showed that future generation is capable of providing heater cooking demand</li>
+                                    <li>Comparing cooking cost to LPG cooking revealed about 50% save in energy cost</li>
+                                    <li>Updating grid side stability components and infrastructure revealed the shorter payback period</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                <div class="body-info-item timeline-item solid-timeline">
+                    <div class="body-info-date">
+                        Feb 2018 - Mar 2018
+                    </div>
+                    <div class="body-info-title">
+                        Ferrous Black Body based Concentrating Solar
+                    </div>
+                    <div class="body-info-details">
+                        <div class="body-info-images">
+                            <div class="autofit-img">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/concSolar/diagram.png" alt="Concentrating Solar Diagram">
+                            </div>
+                            <div class="autofit-img">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/concSolar/solarBox.jpg" alt="Concentrating Solar Array Box">
+                            </div>
+                            <div class="autofit-img">
+                                <img onclick="openImgStage(this)"  src="Images/Projects/concSolar/team.jpg" alt="Concentrating Solar Team">
+                            </div>
+                        </div>
+                        <details class="body-info-texts">
+                            <summary>
+                                In Himalayan regions, solar panels operate under significantly lower insolation, reducing their power output and overall feasibility. To address this, we designed a system that improves panel efficiency by concentrating solar rays and minimizing reflection losses through effective light trapping.
+                            </summary>
+                            <div class="collapsed-texts">
+                                <b>Collaborators:</b> Mahesh Sharma, Keshav Sharma and Lal Babu Mahato <br>
+                                <br>
+                                <b>What:</b>
+                                Ferrous black body inspired solar rays concentraing system to improve utility of solar panels
+                                <br/>
+                                <b>How:</b>
+                                <ul>
+                                    <li>Large parabolic rays concentraing disc panel to increase solar intensity to panels</li>
+                                    <li>Solar box to trap incident rays to reduce losses in reflection</li>
+                                    <li>Use of mirros to fill in gaps to redirect rays</li>
+                                </ul>
+                                <b>Results:</b>
+                                <ul>
+                                    <li>Upto 50% increase in open circuit voltage</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
                 </div>
             </div>
         </section>
@@ -359,141 +564,6 @@
             </div>
         </section>
 
-        <section class="body-info-section" id="projects">
-            <div class="body-info-header-text">
-                Other Projects
-            </div>
-            <div class="body-infos-contents">
-                <div class="body-info-item timeline-item solid-timeline">
-                    <div class="body-info-date">
-                        June 2021 - Apr 2022
-                    </div>
-                    <div class="body-info-title">
-                        Wireless Power Transfer: Electric Scooter based Design
-                    </div>
-                    <div class="body-info-details">
-                        <div class="body-info-images">
-                            <div class="autofit-img">
-                                <img onclick="openImgStage(this)"  src="Images/Projects/WPT/circuit.png" alt="WPT circuit">
-                            </div>
-                            <div class="autofit-img">
-                                <img onclick="openImgStage(this)"  src="Images/Projects/WPT/fieldSim.png" alt="WPT simulation">
-                            </div>
-                            <div class="autofit-img">
-                                <img onclick="openImgStage(this)"  src="Images/Projects/WPT/team.jpg" alt="WPT team photo">
-                            </div>
-                        </div>
-                        <details class="body-info-texts">
-                            <summary>
-                                For our year-long undergraduate capstone project, we designed and optimized a wireless power transfer system for a commercial electric scooter. We successfully demonstrated a working hardware prototype, which was well received by the department.
-                            </summary>
-                            <div class="collapsed-texts">
-                                <b>Collaborators:</b> Peter Multiverse (Ganesh Rai), Abinash Man Karmacharya and Anjana Shrestha <br/>
-                                <br/>
-                                <b>What:</b>
-                                    Simulation and hardware prototype development of inductive resontant coupling based wireless power transfersystem for electric scooter - transfering power from ground pad to coil at base of the scooter.<br/>
-                                <b>How:</b>
-                                <ul>
-                                    <li>Design and optimization of coil design at given constraints in COMSOL Multiphysics Tool</li>
-                                    <li>Design of half bridge inverter with inductive power transfer using S-S topology</li>
-                                    <li>Design of gate driver circuits using isolated-tranformer topology</li>
-                                    <li>Development of hardware prototype using matrix board and off the shelf parts</li>
-                                </ul>
-                                <b>Results:</b>
-                                <ul>
-                                    <li>Successful design and demonstration of working prototype on project defence</li>
-                                    <li>Optimized coil design within dimensional constraints and limiting maximum flux density to 80 mT</li>
-                                    <li>Working hardware prototype with power transfered upto 150W achieving maximum power transfer efficiency of 90%</li>
-                                </ul>
-                                <a href="./Files/Inductive-Resonance-Power-Transfer-Final-Year-Project-Report.pdf" target="_blank" title="Click to view project report">View project report↗</a>
-                            </div>
-                        </details>
-                    </div>
-                </div>
-                <div class="body-info-item timeline-item solid-timeline">
-                    <div class="body-info-date">
-                        Dec 2019 - Jan 2020
-                    </div>
-                    <div class="body-info-title">
-                        Induction Heater Design and Case Study
-                    </div>
-                    <div class="body-info-details">
-                        <div class="body-info-images">
-                            <div class="autofit-img">
-                                <img onclick="openImgStage(this)"  src="Images/Projects/inductionHeater.jpg" alt="Concentrating Solar Diagram">
-                            </div>
-                        </div>
-                        <details class="body-info-texts">
-                            <summary>
-                                As part of an energy hackathon organized to explore sustainable solutions, we studied the feasibility of replacing traditional LPG-based cooking in the Kathmandu Valley with an induction heater-based approach. Our analysis considered projected energy generation and demand trends over the next five years. To support the case for local adoption, we built a functional induction heater prototype demonstrating the potential for in-country production. Our team <b>won</b> the hackathon in the efficiency category.
-                            </summary>
-                            <div class="collapsed-texts">
-                                <b>Team Name:</b> NT RAYS<br>
-                                <b>Collaborators:</b> Abinash Man Karmacharya, Peter Multiverse (Ganesh Rai), Anjana Shrestha <br>
-                                <br>
-                                <b>What:</b>
-                                Case study of induction heater cooking to replace LPG cooking in Kathmandu Valley with in-country manufactoring<br/>
-                                <b>How:</b>
-                                <ul>
-                                    <li>Use of official Nepal Electricity Authority (NEA) data for demand and generation of electrical energy</li>
-                                    <li>Local manufactoring of induction heaters for cost effective heaters production </li>
-                                    <li>Comparison and feasibility of the induction heater based solution at peak loading hours</li>
-                                </ul>
-                                <b>Results:</b>
-                                <ul>
-                                    <li>With clear upward generation trend surpassing electricity consumption demand, the study showed that future generation is capable of providing heater cooking demand</li>
-                                    <li>Comparing cooking cost to LPG cooking revealed about 50% save in energy cost</li>
-                                    <li>Updating grid side stability components and infrastructure revealed the shorter payback period</li>
-                                </ul>
-                            </div>
-                        </details>
-                    </div>
-                </div>
-                <div class="body-info-item timeline-item solid-timeline">
-                    <div class="body-info-date">
-                        Feb 2018 - Mar 2018
-                    </div>
-                    <div class="body-info-title">
-                        Ferrous Black Body based Concentrating Solar
-                    </div>
-                    <div class="body-info-details">
-                        <div class="body-info-images">
-                            <div class="autofit-img">
-                                <img onclick="openImgStage(this)"  src="Images/Projects/concSolar/diagram.png" alt="Concentrating Solar Diagram">
-                            </div>
-                            <div class="autofit-img">
-                                <img onclick="openImgStage(this)"  src="Images/Projects/concSolar/solarBox.jpg" alt="Concentrating Solar Array Box">
-                            </div>
-                            <div class="autofit-img">
-                                <img onclick="openImgStage(this)"  src="Images/Projects/concSolar/team.jpg" alt="Concentrating Solar Team">
-                            </div>
-                        </div>
-                        <details class="body-info-texts">
-                            <summary>
-                                In Himalayan regions, solar panels operate under significantly lower insolation, reducing their power output and overall feasibility. To address this, we designed a system that improves panel efficiency by concentrating solar rays and minimizing reflection losses through effective light trapping.
-                            </summary>
-                            <div class="collapsed-texts">
-                                <b>Collaborators:</b> Mahesh Sharma, Keshav Sharma and Lal Babu Mahato <br>
-                                <br>
-                                <b>What:</b>
-                                Ferrous black body inspired solar rays concentraing system to improve utility of solar panels
-                                <br/>
-                                <b>How:</b>
-                                <ul>
-                                    <li>Large parabolic rays concentraing disc panel to increase solar intensity to panels</li>
-                                    <li>Solar box to trap incident rays to reduce losses in reflection</li>
-                                    <li>Use of mirros to fill in gaps to redirect rays</li>
-                                </ul>
-                                <b>Results:</b>
-                                <ul>
-                                    <li>Upto 50% increase in open circuit voltage</li>
-                                </ul>
-                            </div>
-                        </details>
-                    </div>
-                </div>
-            </div>
-        </section>
         
         <section class="body-info-section" id="contact">
             <div class="body-info-header-text">
@@ -553,8 +623,8 @@
         <div id="stage-blank-space" onclick="closeImgStage()"></div>
         <div id="stage-container">
             <button id="stage-close-btn" onclick="closeImgStage()" title="Click here or outside image to close">⛌</button>
-            <button id="stage-prev-btn"  class = "stage-btn-enabled" onclick="openPrevStage()" title="previous image"><</button>
-            <button id="stage-next-btn"  class = "stage-btn-enabled" onclick="openNextStage()" title="next image">></button>
+            <button id="stage-prev-btn"  class = "stage-btn-enabled" onclick="openPrevStage()" title="previous image">&lsaquo;</button>
+            <button id="stage-next-btn"  class = "stage-btn-enabled" onclick="openNextStage()" title="next image">&rsaquo;</button>
             <img id="stage-image" src="" alt="Zoomed clicked iamge">
         </div>
     </div>
