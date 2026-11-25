@@ -136,7 +136,7 @@ img{
 #stage-prev-btn{
     position: absolute;
     top: calc(50% + 25px - 125px);
-    left: 0;
+    left: 10px;
     width: 60px;
     height: 250px;
     z-index: 1;
@@ -178,6 +178,27 @@ img{
     border-radius: 3px;
 }
 
+/* Image stage responsiveness */
+@media (max-width: 600px) {
+    
+    #image-stage{
+        position:fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        padding: 0px 5px;
+    }
+    
+    .stage-btn-enabled{
+        background-color: #222;
+        opacity: 0.5;
+    }
+    
+    .stage-btn-enabled:hover{
+        opacity: 0.5;
+    }
+}
 
 /*
     Header styling starts here
