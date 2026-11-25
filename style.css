@@ -180,7 +180,6 @@ img{
 
 /* Image stage responsiveness */
 @media (max-width: 600px) {
-    
     #image-stage{
         position:fixed;
         left: 0;
@@ -192,11 +191,24 @@ img{
     
     .stage-btn-enabled{
         background-color: #222;
+        border: none;
+        border-radius: 0;
         opacity: 0.5;
+        font-size: 40px;
     }
     
     .stage-btn-enabled:hover{
         opacity: 0.5;
+    }
+    
+    #stage-prev-btn{
+        width: 20px;
+        left: 0;
+    }
+
+    #stage-next-btn{
+        width: 20px;
+        right: 0;
     }
 }
 
